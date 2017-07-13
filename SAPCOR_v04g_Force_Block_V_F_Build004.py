@@ -1,8 +1,10 @@
-VERSION_NAME = 'SAPCOR_v04f'
+VERSION_NAME = 'SAPCOR_v04g'
 
 # MODULE NAME
 MODULE_NAME_THIS__FORCE_BLOCK_V_F = VERSION_NAME+'_Force_Block_V_F'
 
+###############################################################################
+#{    SYSTEM INITIALIZATION
 
 import glob
 
@@ -28,12 +30,13 @@ for Module_Name in MODULE_NAMES_FORCE_BLOCK_V_F:
 from numpy import loadtxt
 from numpy import array,zeros,hstack
 
+#}#############################################################################
 
 
 #-------------------------------------------------------------------------
-
-def Force_Block_V_F (w,t,Core,K,L,Accel):
-  
+def Force_Block_V_F (w,t,Core,K,L,Accel,POST=False,FO_DIR=FO_DIR):
+#{
+  #{ DESCRIPTION  
   """
     Defines the differential equations for the coupled spring-mass system.
 
@@ -43,17 +46,21 @@ def Force_Block_V_F (w,t,Core,K,L,Accel):
         t :  time
         Core : Var space
   """
+  #}
 
-  # VERBOSE
+  #{ VERBOSE
   if '/Force/' in VERBOSE:
     Verbose('<FORCE_BLOCK_V_F>')
     Verbose('time=%e, (K,L)=(%d,%d)'%(t,K,L))
-    
+  #}  
 
+#=========================================================================
+#{ INITIALIZATION
+  
   # Column Size
   N = Core['N'][K]
 
-  # Get Block Prop of (K,L)
+  #{ Get Block Prop of (K,L)
 #  BN = Core['Array'][K][L]
   BN = Core['BTNsKL'][K][L]
   BT = BlockTypes[BN]
@@ -68,10 +75,12 @@ def Force_Block_V_F (w,t,Core,K,L,Accel):
   d_mu = BT['d_mu']
   xi_F_cr = BT['xi_F_cr']
 #  Fixed = BT['Fixed']
+  #}
 
-  # Get Block Prop of (K,L-1)
+  #{ Get Block Prop of (K,L-1)
   # Subscript, m, means 'Minus 1'
   if L!=1:
+    #{
 #    BN = Core['Array'][K][L-1]
     BN = Core['BTNsKL'][K][L-1]
     BT = BlockTypes[BN]
@@ -82,7 +91,9 @@ def Force_Block_V_F (w,t,Core,K,L,Accel):
 #    Kvm = BT['Kv']
 #    Cvm = BT['Cv']
 #    Fixedm = BT['Fixed']
+    #}
   else:
+    #{
     if Core['Flag_CSB']==True: # CSB
       BT = BlockTypes['CSB']
       Hm = 0
@@ -91,13 +102,13 @@ def Force_Block_V_F (w,t,Core,K,L,Accel):
     else: # Base
       Hm = 0
       Mm = Im = 1
-      
-  
+    #}    
+  #}
 
   # Get current state of (K,L)
   U,DU,W,DW,R,DR = GetSolFromVect(Core,w,K,L) # U,DU,W,DW,R,DR
 
-  # Get current state of (K,L-1)
+  #{ Get current state of (K,L-1)
   # If L==1:
   #   It means lower component is CSB or Base.
   #   If Flag_CSB==True: Get state of CSB  (which means (K,L)==(1,0))
@@ -105,21 +116,26 @@ def Force_Block_V_F (w,t,Core,K,L,Accel):
   if L!=1:
     Um,DUm,Wm,DWm,Rm,DRm = GetSolFromVect(Core,w,K,L-1) # U,DU,W,DW,R,DR
   else:
+  	#{
     if Core['Flag_CSB']==True:
       Um,DUm,Wm,DWm,Rm,DRm = GetSolFromVect(Core,w,1,0) # CSB
     else:
       Um,DUm,Wm,DWm,Rm,DRm = GetSolFromVect(Core,w,0,0) # Base
-    
-
+    #}
+  #}  
+  
+#  INITIALIZATION
+#}========================================================================
 
 ##############################################################################
-#  VERTICAL FORCES
-##############################################################################
+#{  VERTICAL FORCES                                                          #
+#                                                                            #
+#                                                                            #
 
 #(v04f)  if Core['ApplyForces']['Block_V']==True:
 # ['Block_V'] is already checked in VectorField()
 
-  # Spring Contraction between (K,L-1)~(K,L)
+  #{ Spring Contraction between (K,L-1)~(K,L)
   if L!=1:
     Gamma_L  = Wm - Hm * (1-cos( Rm )) + A  * sin( Rm )
     Gamma_L -= W  + H  * (1-cos( R  )) + A  * sin( R  )
@@ -148,9 +164,9 @@ def Force_Block_V_F (w,t,Core,K,L,Accel):
     DGamma_R  = DWm
     DGamma_R -= DW  + ( H  * sin( R  ) - A  * cos( R  ) ) * DR
     DGamma_R *= 0.5
-
+  #}
   
-  # Forces and Moments
+  #{ Forces and Moments
   F_VL,   F_VR = 0,0
   M_VL, M_VR, M_VLm, M_VRm = 0,0,0,0
  
@@ -177,22 +193,20 @@ def Force_Block_V_F (w,t,Core,K,L,Accel):
   M_VLm = -F_VL * ( A*cos(Rm) - Hm*sin(Rm) )
   M_VRm =  F_VR * ( A*cos(Rm) + Hm*sin(Rm) )
 
-  
+  #}  
 
-
-  # Assemble Forces
+  #{ Assemble Forces
   AccelF  =  (F_VL  + F_VR ) / M
   AccelM  =  (M_VL  + M_VR ) / I
   AccelFm = -(F_VL  + F_VR ) / Mm
   AccelMm =  (M_VLm + M_VRm) / Im
-  
+    
   # Add Accel on (K,L)
   IndexW = Core['Index'][K][L]*6
   Accel[IndexW+3] += AccelF # DDW
   Accel[IndexW+5] += AccelM # DDR
-
+    
   # Add Accel on (K,L-1)
-  
   if L!=1: # Normal Blocks
     IndexWm = Core['Index'][K][L-1]*6
     Accel[IndexWm+3] += AccelFm # DDW
@@ -202,9 +216,10 @@ def Force_Block_V_F (w,t,Core,K,L,Accel):
     pass # if CSB: Do nothing
 
   else: pass # if Base: Do nothing
+  
+  #}
 
-
-  # VERBOSE
+  #{ VERBOSE
   if '/ForceV/' in VERBOSE:
     Verbose('-'*80)
     Verbose('Force_Block_V(), F_V Caculation Verification')
@@ -222,25 +237,41 @@ def Force_Block_V_F (w,t,Core,K,L,Accel):
       Verbose('Accel(%d,%d) = %e, %e'%(K,L-1,AccelFm,AccelMm))
       Verbose('Accel[%d] = %e'%(IndexWm+3,Accel[IndexWm+3]))
       Verbose('Accel[%d] = %e'%(IndexWm+5,Accel[IndexWm+5]))
+  #}
+  
+  #{ POST
+  if POST==True:
+    temp  = '%e, '%t
+    temp += '%e, %e, %e, %e, %e, '%(Gamma_L,DGamma_L,F_VL,M_VL,M_VLm)
+    temp += '%e, %e, %e, %e, %e  '%(Gamma_R,DGamma_R,F_VR,M_VR,M_VRm)
+    temp += '\n'
+    fo = open(FO_DIR+'/(%2d,%2d)_V.csv'%(K,L),'a')
+    fo.write(temp)
+    fo.close()
+  #}
 
-
-
-
+#                                                                            #
+#                                                                            #
+#   END OF VERTICAL FORCES                                                   #
+#}############################################################################
 
 
 ##############################################################################
-#  FRICTION FORCES
-##############################################################################
+#{  FRICTION FORCES                                                          #
+#                                                                            #
+#                                                                            #
 
 #(v04f)  if Core['ApplyForces']['Block_F']==True:
   if Core['ApplyForces']['Block_VF']==True:
+  #{
 
-    # Init
+    #{ Init
     xi_L=xi_R=0
     F_FL=F_FLm=M_FL=M_FLm=F_FR=F_FRm=M_FR=M_FRm=0
+    #}
     
     #===========================================================================
-    # LEFT start
+    #{ LEFT start
     
     # Vertical Reaction should be positive
     if F_VL>0: 
@@ -276,11 +307,11 @@ def Force_Block_V_F (w,t,Core,K,L,Accel):
     
     
     # LEFT end
-    #===========================================================================
+    #}===========================================================================
     
   
     #===========================================================================
-    # RIGHT start
+    #{ RIGHT start
     
     # Vertical Reaction should be positive
     if F_VR>0: 
@@ -316,9 +347,9 @@ def Force_Block_V_F (w,t,Core,K,L,Accel):
     
     
     # RIGHT end
-    #===========================================================================
+    #}===========================================================================
   
-    # Assemble Accel
+    #{ Assemble Accel
     AccelF  =  (F_FL  + F_FR ) / M
     AccelM  =  (M_FL  + M_FR ) / I
     AccelFm = -(F_FL  + F_FR ) / Mm
@@ -343,9 +374,9 @@ def Force_Block_V_F (w,t,Core,K,L,Accel):
       pass # No moment on CSB
   
     else: pass # if Base: Do nothing
+    #}
 
-
-    # VERBOSE
+    #{ VERBOSE
     if '/ForceVF/' in VERBOSE:
       Verbose('-'*80)
       Verbose('Force_Block_V_F(), Friction Caculation Verification')
@@ -362,8 +393,30 @@ def Force_Block_V_F (w,t,Core,K,L,Accel):
         Verbose('Accel(%d,%d) = %e, %e'%(K,L-1,AccelFm,AccelMm))
         Verbose('Accel[%d] = %e'%(IndexWm+1,Accel[IndexWm+1]))
         Verbose('Accel[%d] = %e'%(IndexWm+5,Accel[IndexWm+5]))
+    #}
 
+    #{ POST
+    if POST==True:
+      temp  = '%e, '%t
+      temp += '%e, %e, %e, %e, '%( xi_L, F_FL, M_FL, M_FLm )
+      temp += '%e, %e, %e, %e  '%( xi_R, F_FR, M_FR, M_FRm )
+      temp += '\n'
+      fo = open(FO_DIR+'/(%2d,%2d)_VF.csv'%(K,L),'a')
+      fo.write(temp)
+      fo.close()
+    #}
+
+     
+  #}
+  
+  
+#                                                                            #
+#                                                                            #
+#   FRICTION FORCES                                                          #
+#}############################################################################
 
 
   # END
   return Accel
+#}
+#-------------------------------------------------------------------------

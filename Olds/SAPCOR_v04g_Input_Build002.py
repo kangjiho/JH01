@@ -5,17 +5,17 @@ VERSION_NAME = 'SAPCOR_v04f'
 
 
 ###############################################################################
-# USER OUTPUT FILENAME (WITHOUT EXTENSION)
+#{ USER OUTPUT FILENAME (WITHOUT EXTENSION)
 FN_OUT = 'Verif_05_Single'
 FN_FIG = 'Fig'
 FN_CoreShape = 'CoreShape'
 FN_Solution = 'Solution'
-###############################################################################
+#}#############################################################################
 
 
 
 ###############################################################################
-# USER CONTROL
+#{ USER CONTROL
 
 # Eliminate sticking force
 FLAG_NoStickForce = False
@@ -26,13 +26,14 @@ FLAG_NoStickForce = False
 FLAG_TestForce = False
 
 # END OF USER CONTROL
-###############################################################################
+#}#############################################################################
 
 
 
 
 ###############################################################################
-# NUMERICAL INTEGRATION SETTING
+#{ NUMERICAL INTEGRATION SETTING
+
 # Error Tolerance
 Tol0 = 1e-9
 TolMax = 1e-1
@@ -49,13 +50,14 @@ SectionTimeMin = 1e-4
 # Number of Sampling Points in a Integration Section
 #NPoints = 32000
 #NPoints = 32000
+
 # END OF NUMERICAL INTEGRATION SETTING
-###############################################################################
+#}##############################################################################
 
 
 
 ###############################################################################
-# VERBOSE CONTROL
+#{ VERBOSE CONTROL
 # VERBOSER FLAG
 VERBOSE = ''
 VERBOSE += '/Init/'
@@ -70,22 +72,15 @@ VERBOSE += '/Init/'
 #VERBOSE += '/Adaptive/'
 #VERBOSE += '/Output/'
 # END OF VERBOSE CONTROL
-###############################################################################
-
-
-
-
-
-
-
-
-
+#}##############################################################################
 
 
 
 
 ###############################################################################
-# USER INPUT
+#{ USER INPUT
+
+#{
 M = 0.00628
 C = 1.77
 K = 2.5e4
@@ -106,31 +101,33 @@ mu_s = 0.2
 mu_k = 0.2
 d_mu = 100
 xi_F_cr = 0.01
+#}
 
-# Gap
+# Gap #{
 Delta = 0.1     # General Block Gap 
 DeltaTop = 0.05 # Top Block Gap
 DeltaD = 0.025    # Dowel Gap
 #DeltaL = 0.05   # Dowel Gap Left
 #DeltaR = 0.05   # Dowel Gap Right
+#}
 
-# Total time for analysis
+#{ Total time for analysis
 # Real analysis time >= TotalTime
 TotalTime = 0.0005
 TotalTime = 1.001
 #TotalTime = 2.001
+#}
 
-
-# Toggle Forces On/Off for Test
+#{ Toggle Forces On/Off for Test
 ApplyForces={}
 ApplyForces['Block_H']=True
 ApplyForces['Block_D']=True
 ApplyForces['Block_DF']=True
 ApplyForces['Block_V']=True
 ApplyForces['Block_VF']=True
+#}
 
-
-# Block Types
+#{ Block Types
 #
 # 'Fixed':'None' if the block is not fixed
 #         'Fixed' if want to maintain initial U,DU,W,DW,R,DR
@@ -149,8 +146,9 @@ BlockTypes['C']={'a':a,'b':b,'h':h,  'd':d,'M':M,'I':I,'Kh':Kh,'Ch':Ch,'Kv':Kv,'
 BlockTypes['D']={'a':a,'b':b,'h':h*3,'d':d,'M':M,'I':I,'Kh':Kh,'Ch':Ch,'Kv':Kv,'Cv':Cv,'Kd':Kd,'Cd':Cd,'mu_s':mu_s,'mu_k':mu_k,'d_mu':d_mu,'xi_F_cr':xi_F_cr,'Fixed':'None'}
 BlockTypes['E']={'a':a,'b':b,'h':h*4,'d':d,'M':M,'I':I,'Kh':Kh,'Ch':Ch,'Kv':Kv,'Cv':Cv,'Kd':Kd,'Cd':Cd,'mu_s':mu_s,'mu_k':mu_k,'d_mu':d_mu,'xi_F_cr':xi_F_cr,'Fixed':'None'}
 BlockTypes['CSB']={'a':0,'b':0,'h':h/2,'d':d,'M':M,'I':I,'Kh':Kh,'Ch':Ch,'Kv':Kv,'Cv':Cv,'Kd':Kd,'Cd':Cd,'mu_s':mu_s,'mu_k':mu_k,'d_mu':d_mu,'xi_F_cr':xi_F_cr,'Fixed':'FixedToBase'}
+#}
 
-# Material Properties
+#{ Material Properties
 MatProp={}
 MatProp['Block']={}
 MatProp['Block']['K']=K
@@ -158,16 +156,18 @@ MatProp['Block']['C']=C
 MatProp['Restraint']={}
 MatProp['Restraint']['K']=K
 MatProp['Restraint']['C']=C
+#}
 
-# Core Array
+#{ Core Array
 CoreArray = []
 CoreArray.append('CSB')
 CoreArray.append('W')
 #CoreArray.append('BBBBBBBBBBBBB')
 CoreArray.append('BB')
 CoreArray.append('W')
+#}
 
-# Initial Conditions
+#{ Initial Conditions
 # InitialConditions.append([K,L, U,DU, W,DW, R,DR])
 InitialConditions=[]
 #InitialConditions.append([1,1, 0.,0., 0.,0., 0.,0.])
@@ -175,15 +175,17 @@ InitialConditions=[]
 #                          K  L  U       DU  W       DW  R       DR 
 InitialConditions.append([ 1, 1, 1.2677, 0., 0.5760, 0., 0.0873, 0. ])
 InitialConditions.append([ 1, 2, 1.2677, 0., 1.7280, 0., -0.0873, 0. ])
+#}
 
-# Body Force (acceleration)
+#{ Body Force (acceleration)
 BodyForce = {}
 # Unit : cm/s2
 BodyForce[1] = 0.
 BodyForce[3] = -981.0
 BodyForce[5] = 0.
+#}
 
-# Loads on support frame (F_SupportFrame()) (acceleration)
+#{ Loads on support frame (F_SupportFrame()) (acceleration)
 Load = {}; Load[1]={}; Load[3]={}; Load[5]={}
 # Load[i] : i is axis direction
 #   i=1 : Coord=X, Disp=U
@@ -207,6 +209,9 @@ Load[1]['Amp']=500.
 Load[1]['Freq']=10.
 Load[3]['Type']='None'
 Load[5]['Type']='None'
+#}
+
+#{ OUTPUT CONTROL
 
 # Time Frequency for CoreShape Output
 OP_CoreShape_TimeFreq = 0.02
@@ -226,10 +231,12 @@ OP_Solution_TimeFreq = 0.02
 # What is "Block Data" : All time response from beginning of a block
 OP_Block_TimeFreq = 0.001
 
+#}
+
 # Filename for Verbose
 FN_Verbose = 'Verbose.txt'
 
 
 # END OF USER INPUT
-###############################################################################
+#}##############################################################################
 
