@@ -1,0 +1,1228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/SAPCOR_v04j_Force_Build003.py" line="273" mnemonic="2" />
+    <bookmark url="file://$PROJECT_DIR$/SAPCOR_v04j_Force_Build003.py" line="17" mnemonic="1" />
+    <bookmark url="file://$PROJECT_DIR$/SAPCOR_v04j_Force_Build003.py" line="482" mnemonic="3" />
+    <bookmark url="file://$PROJECT_DIR$/SAPCOR_v04j_Build001.py" line="417" mnemonic="4" />
+    <bookmark url="file://$PROJECT_DIR$/SAPCOR_v04j_Force_Build003.py" line="59" mnemonic="5" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="52c721e8-44c2-44af-9aba-eac278f9bd3e" name="Default" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="v04j" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="SAPCOR_v04j_Build001.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Build001.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="199">
+              <caret line="419" column="0" lean-forward="false" selection-start-line="419" selection-start-column="0" selection-end-line="419" selection-end-column="0" />
+              <folding>
+                <element signature="n#!!doc" expanded="false" />
+                <element signature="e#118#189#0" expanded="false" />
+                <element signature="e#499#568#0" expanded="false" />
+                <element signature="e#803#872#0" expanded="false" />
+                <element signature="e#996#1217#0" expanded="false" />
+                <element signature="e#1218#1287#0" expanded="false" />
+                <element signature="e#1931#2002#0" expanded="false" />
+                <element signature="e#2028#2571#0" expanded="false" />
+                <element signature="e#2172#2512#0" expanded="false" />
+                <element signature="e#2371#2473#0" expanded="false" />
+                <element signature="e#2484#2512#0" expanded="false" />
+                <element signature="e#2957#3108#0" expanded="false" />
+                <element signature="e#3119#3189#0" expanded="false" />
+                <element signature="e#3525#3599#0" expanded="false" />
+                <element signature="e#3799#4224#0" expanded="false" />
+                <element signature="e#3838#3941#0" expanded="false" />
+                <element signature="e#3989#4220#0" expanded="false" />
+                <element signature="e#4098#4211#0" expanded="false" />
+                <element signature="e#4388#4441#0" expanded="false" />
+                <element signature="e#4442#4444#0" expanded="false" />
+                <element signature="e#4709#4868#0" expanded="false" />
+                <element signature="e#4824#4856#0" expanded="false" />
+                <element signature="e#4938#5014#0" expanded="false" />
+                <element signature="e#5131#5346#0" expanded="false" />
+                <element signature="e#5347#5423#0" expanded="false" />
+                <element signature="e#5577#5718#0" expanded="false" />
+                <element signature="e#5718#5793#0" expanded="false" />
+                <element signature="e#5942#5988#0" expanded="false" />
+                <element signature="e#5992#6067#0" expanded="false" />
+                <element signature="e#6209#6338#0" expanded="false" />
+                <element signature="e#6338#6413#0" expanded="false" />
+                <element signature="e#6544#6584#0" expanded="false" />
+                <element signature="e#6588#6663#0" expanded="false" />
+                <element signature="e#7456#7531#0" expanded="false" />
+                <element signature="e#7660#9194#0" expanded="false" />
+                <element signature="e#8112#8197#0" expanded="false" />
+                <element signature="e#8275#8364#0" expanded="false" />
+                <element signature="e#8524#8646#0" expanded="false" />
+                <element signature="e#8792#8902#0" expanded="false" />
+                <element signature="e#9014#9116#0" expanded="false" />
+                <element signature="e#9291#9344#0" expanded="false" />
+                <element signature="e#9527#9789#0" expanded="false" />
+                <element signature="e#9527#9574#0" expanded="false" />
+                <element signature="e#9817#10292#0" expanded="false" />
+                <element signature="e#9898#10172#0" expanded="false" />
+                <element signature="e#10214#10292#0" expanded="false" />
+                <element signature="e#10292#10346#0" expanded="false" />
+                <element signature="e#10545#10547#0" expanded="false" />
+                <element signature="e#10628#10664#0" expanded="false" />
+                <element signature="e#10846#10881#0" expanded="false" />
+                <element signature="e#11593#11672#0" expanded="false" />
+                <element signature="e#11673#11674#0" expanded="false" />
+                <element signature="e#11985#13539#0" expanded="false" />
+                <element signature="e#12106#12259#0" expanded="false" />
+                <element signature="e#12467#12838#0" expanded="false" />
+                <element signature="e#12999#13319#0" expanded="false" />
+                <element signature="e#13135#13302#0" expanded="false" />
+                <element signature="e#13632#13711#0" expanded="false" />
+                <element signature="e#13713#13792#0" expanded="false" />
+                <element signature="e#13857#20924#0" expanded="false" />
+                <element signature="e#13916#13940#0" expanded="false" />
+                <element signature="e#14030#14032#0" expanded="false" />
+                <element signature="e#14160#16139#0" expanded="false" />
+                <element signature="e#14160#14201#0" expanded="false" />
+                <element signature="e#14525#14527#0" expanded="false" />
+                <element signature="e#14665#14667#0" expanded="false" />
+                <element signature="e#14784#14786#0" expanded="false" />
+                <element signature="e#14998#15106#0" expanded="false" />
+                <element signature="e#15128#16139#0" expanded="false" />
+                <element signature="e#15177#16130#0" expanded="false" />
+                <element signature="e#15177#15193#0" expanded="false" />
+                <element signature="e#15364#15502#0" expanded="false" />
+                <element signature="e#15717#16130#0" expanded="false" />
+                <element signature="e#16024#16049#0" expanded="false" />
+                <element signature="e#16139#16165#0" expanded="false" />
+                <element signature="e#16652#16730#0" expanded="false" />
+                <element signature="e#16875#16964#0" expanded="false" />
+                <element signature="e#16966#17012#0" expanded="false" />
+                <element signature="e#17063#17204#0" expanded="false" />
+                <element signature="e#17239#17371#0" expanded="false" />
+                <element signature="e#17576#17578#0" expanded="false" />
+                <element signature="e#20928#20965#0" expanded="false" />
+                <element signature="e#21137#21216#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pydevd.py" pinned="false" current-in-tab="false">
+        <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="268">
+              <caret line="1595" column="0" lean-forward="false" selection-start-line="1595" selection-start-column="0" selection-end-line="1595" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SAPCOR_v04j_Force_Build003.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Force_Build003.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="189">
+              <caret line="534" column="7" lean-forward="false" selection-start-line="534" selection-start-column="2" selection-end-line="534" selection-end-column="7" />
+              <folding>
+                <element signature="e#173#196#0" expanded="false" />
+                <element signature="e#775#798#0" expanded="false" />
+                <element signature="e#840#1064#0" expanded="false" />
+                <element signature="e#1200#1222#0" expanded="false" />
+                <element signature="e#1342#1381#0" expanded="false" />
+                <element signature="e#2249#2542#1" expanded="false" />
+                <element signature="e#2626#2670#0" expanded="false" />
+                <element signature="e#2673#2687#0" expanded="false" />
+                <element signature="e#3022#3038#0" expanded="false" />
+                <element signature="e#3070#3116#0" expanded="false" />
+                <element signature="e#3222#3252#0" expanded="false" />
+                <element signature="e#3936#3971#0" expanded="false" />
+                <element signature="e#3974#4020#0" expanded="false" />
+                <element signature="e#4467#4496#0" expanded="false" />
+                <element signature="e#4645#4669#0" expanded="false" />
+                <element signature="e#5063#5079#0" expanded="false" />
+                <element signature="e#5340#5357#0" expanded="false" />
+                <element signature="e#5386#8961#0" expanded="false" />
+                <element signature="e#5386#5414#0" expanded="false" />
+                <element signature="e#5448#8917#0" expanded="false" />
+                <element signature="e#5526#5554#0" expanded="false" />
+                <element signature="e#5615#5799#0" expanded="false" />
+                <element signature="e#5997#6027#0" expanded="false" />
+                <element signature="e#6087#6275#0" expanded="false" />
+                <element signature="e#6327#6369#0" expanded="false" />
+                <element signature="e#6459#6529#0" expanded="false" />
+                <element signature="e#6569#6807#0" expanded="false" />
+                <element signature="e#6978#7011#0" expanded="false" />
+                <element signature="e#7037#8817#0" expanded="false" />
+                <element signature="e#7037#7058#0" expanded="false" />
+                <element signature="e#7258#7276#0" expanded="false" />
+                <element signature="e#7502#7525#0" expanded="false" />
+                <element signature="e#7537#7565#0" expanded="false" />
+                <element signature="e#7609#8232#0" expanded="false" />
+                <element signature="e#7609#7648#0" expanded="false" />
+                <element signature="e#7839#7892#0" expanded="false" />
+                <element signature="e#7950#8140#0" expanded="false" />
+                <element signature="e#8287#8318#0" expanded="false" />
+                <element signature="e#8362#8527#0" expanded="false" />
+                <element signature="e#8584#8631#0" expanded="false" />
+                <element signature="e#9149#9175#0" expanded="false" />
+                <element signature="e#9266#9304#0" expanded="false" />
+                <element signature="e#9331#10226#0" expanded="false" />
+                <element signature="e#9624#10215#0" expanded="false" />
+                <element signature="e#9759#9827#0" expanded="false" />
+                <element signature="e#9918#10043#0" expanded="false" />
+                <element signature="e#10131#10201#0" expanded="false" />
+                <element signature="e#10412#10432#0" expanded="false" />
+                <element signature="e#10438#10512#0" expanded="false" />
+                <element signature="e#11380#11770#0" expanded="false" />
+                <element signature="e#11409#11538#0" expanded="false" />
+                <element signature="e#11575#11658#0" expanded="false" />
+                <element signature="e#11964#11987#0" expanded="false" />
+                <element signature="e#11992#12066#0" expanded="false" />
+                <element signature="e#12375#12682#0" expanded="false" />
+                <element signature="e#12375#12411#0" expanded="false" />
+                <element signature="e#12892#12910#0" expanded="false" />
+                <element signature="e#13040#13061#0" expanded="false" />
+                <element signature="e#13110#13322#0" expanded="false" />
+                <element signature="e#13360#13542#0" expanded="false" />
+                <element signature="e#13575#13687#0" expanded="false" />
+                <element signature="e#13688#13748#0" expanded="false" />
+                <element signature="e#13965#14319#0" expanded="false" />
+                <element signature="e#14078#14138#0" expanded="false" />
+                <element signature="e#14364#14365#0" expanded="false" />
+                <element signature="e#14662#14694#0" expanded="false" />
+                <element signature="e#14952#15001#0" expanded="false" />
+                <element signature="e#15117#15918#0" expanded="false" />
+                <element signature="e#15117#15473#1" expanded="false" />
+                <element signature="e#16539#16545#0" expanded="false" />
+                <element signature="e#16661#16667#0" expanded="false" />
+                <element signature="e#17727#17729#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SAPCOR_v04j_Force_Block_V_F_Build001.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Force_Block_V_F_Build001.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="308">
+              <caret line="465" column="0" lean-forward="false" selection-start-line="465" selection-start-column="0" selection-end-line="465" selection-end-column="0" />
+              <folding>
+                <element signature="e#114#193#0" expanded="false" />
+                <element signature="e#1416#14722#0" expanded="false" />
+                <element signature="e#1421#1662#1" expanded="false" />
+                <element signature="e#1681#1697#0" expanded="false" />
+                <element signature="e#1905#1928#0" expanded="false" />
+                <element signature="e#1968#2000#0" expanded="false" />
+                <element signature="e#2331#2365#0" expanded="false" />
+                <element signature="e#2415#2709#0" expanded="false" />
+                <element signature="e#2722#2882#0" expanded="false" />
+                <element signature="e#3026#3063#0" expanded="false" />
+                <element signature="e#3066#3097#0" expanded="false" />
+                <element signature="e#3394#3569#0" expanded="false" />
+                <element signature="e#3736#3760#0" expanded="false" />
+                <element signature="e#4181#4230#0" expanded="false" />
+                <element signature="e#4246#4798#0" expanded="false" />
+                <element signature="e#4852#5240#0" expanded="false" />
+                <element signature="e#6060#6084#0" expanded="false" />
+                <element signature="e#6678#6694#0" expanded="false" />
+                <element signature="e#7601#7614#0" expanded="false" />
+                <element signature="e#7705#7720#0" expanded="false" />
+                <element signature="e#8064#8099#0" expanded="false" />
+                <element signature="e#8349#8363#0" expanded="false" />
+                <element signature="e#9213#9238#0" expanded="false" />
+                <element signature="e#9351#14581#0" expanded="false" />
+                <element signature="e#9530#9543#0" expanded="false" />
+                <element signature="e#9621#10680#0" expanded="false" />
+                <element signature="e#9899#10625#0" expanded="false" />
+                <element signature="e#9899#9928#0" expanded="false" />
+                <element signature="e#9972#10044#0" expanded="false" />
+                <element signature="e#10069#10277#0" expanded="false" />
+                <element signature="e#10343#10394#0" expanded="false" />
+                <element signature="e#10952#11865#0" expanded="false" />
+                <element signature="e#11230#11810#0" expanded="false" />
+                <element signature="e#11302#11374#0" expanded="false" />
+                <element signature="e#11399#11585#0" expanded="false" />
+                <element signature="e#12044#12067#0" expanded="false" />
+                <element signature="e#12919#12935#0" expanded="false" />
+                <element signature="e#13905#13918#0" expanded="false" />
+                <element signature="e#14141#14308#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="urllib.py" pinned="false" current-in-tab="false">
+        <entry file="file://C:/Program Files/Anaconda2/Lib/urllib.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="177">
+              <caret line="1283" column="0" lean-forward="false" selection-start-line="1283" selection-start-column="0" selection-end-line="1283" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pydevd_utils.py" pinned="false" current-in-tab="false">
+        <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydevd_bundle/pydevd_utils.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="177">
+              <caret line="121" column="0" lean-forward="false" selection-start-line="121" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>Core['Index']</find>
+      <find>Index2</find>
+      <find>vectorfield</find>
+      <find>POST</find>
+      <find>accel</find>
+      <find>Accel</find>
+      <find>raw</find>
+      <find>print</find>
+    </findStrings>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/SAPCOR_v04j_Force_Block_D_F_Build000.py" />
+        <option value="$PROJECT_DIR$/SAPCOR_v04j_Force_Block_H_Build000.py" />
+        <option value="$PROJECT_DIR$/SAPCOR-POST_v04j_Build000.py" />
+        <option value="$PROJECT_DIR$/SAPCOR_v04j_Input_Build002.py" />
+        <option value="$PROJECT_DIR$/SAPCOR_v04j_Misc_Build001.py" />
+        <option value="$PROJECT_DIR$/SAPCOR_v04j_Build000.py" />
+        <option value="$PROJECT_DIR$/SAPCOR_v04j_Force_Build002.py" />
+        <option value="$PROJECT_DIR$/SAPCOR_v04j_Force_Build003.py" />
+        <option value="$PROJECT_DIR$/SAPCOR_v04j_Build001.py" />
+        <option value="$PROJECT_DIR$/SAPCOR_v04j_Force_Block_V_F_Build001.py" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1066" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>Python</id>
+          </State>
+        </expanded-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="v04j" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="v04j" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="v04j" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="v04j" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SAPCOR_v04j_Force_Build003.py" />
+              <option name="myItemType" value="com.jetbrains.python.projectView.PyFileNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="v04j" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="v04j" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SAPCOR_v04j_Build001.py" />
+              <option name="myItemType" value="com.jetbrains.python.projectView.PyFileNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
+    <property name="settings.editor.splitter.proportion" value="0.23506366" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\2016_Seismic\Coding\v04j" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.SAPCOR_v04j_Build001">
+    <configuration default="false" name="SAPCOR_v04j_Build000" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="v04j" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/SAPCOR_v04j_Build000.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="SAPCOR_v04j_Build001" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="v04j" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/SAPCOR_v04j_Build001.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="v04j" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Tox" factoryName="Tox">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="v04j" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Attests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="v04j" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Doctests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="v04j" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Nosetests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="v04j" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Unittests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="v04j" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="py.test">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="v04j" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="testToRun" value="" />
+      <option name="keywords" value="" />
+      <option name="params" value="" />
+      <option name="USE_PARAM" value="false" />
+      <option name="USE_KEYWORD" value="false" />
+      <method />
+    </configuration>
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="Python.SAPCOR_v04j_Build000" />
+      <item index="1" class="java.lang.String" itemvalue="Python.SAPCOR_v04j_Build001" />
+    </list>
+    <recent_temporary>
+      <list size="2">
+        <item index="0" class="java.lang.String" itemvalue="Python.SAPCOR_v04j_Build001" />
+        <item index="1" class="java.lang.String" itemvalue="Python.SAPCOR_v04j_Build000" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="52c721e8-44c2-44af-9aba-eac278f9bd3e" name="Default" comment="" />
+      <created>1485417983262</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1485417983262</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
+    <editor active="false" />
+    <layout>
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18071654" sideWeight="0.45931476" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32976446" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32976446" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32976446" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24868283" sideWeight="0.46345812" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32978722" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18071654" sideWeight="0.54068524" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3993576" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32976446" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="21" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/SAPCOR-POST_v04j_Build000.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" column="27" lean-forward="false" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Build000.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Force_Block_D_F_Build000.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="27" lean-forward="false" selection-start-line="0" selection-start-column="27" selection-end-line="0" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Force_Block_H_Build000.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="27" lean-forward="false" selection-start-line="0" selection-start-column="27" selection-end-line="0" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Force_Block_V_F_Build001.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="27" lean-forward="false" selection-start-line="0" selection-start-column="27" selection-end-line="0" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Force_Build002.py" />
+    <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Input_Build002.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="27" lean-forward="false" selection-start-line="0" selection-start-column="27" selection-end-line="0" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Misc_Build001.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="27" lean-forward="false" selection-start-line="0" selection-start-column="27" selection-end-line="0" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAPCOR-POST_v04j_Build000.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" column="27" lean-forward="false" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Build000.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Force_Block_D_F_Build000.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="27" lean-forward="false" selection-start-line="0" selection-start-column="27" selection-end-line="0" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Force_Block_H_Build000.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="27" lean-forward="false" selection-start-line="0" selection-start-column="27" selection-end-line="0" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Force_Block_V_F_Build001.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="27" lean-forward="false" selection-start-line="0" selection-start-column="27" selection-end-line="0" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Force_Build002.py" />
+    <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Input_Build002.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="27" lean-forward="false" selection-start-line="0" selection-start-column="27" selection-end-line="0" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Misc_Build001.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="27" lean-forward="false" selection-start-line="0" selection-start-column="27" selection-end-line="0" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAPCOR-POST_v04j_Build000.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" column="27" lean-forward="false" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Build000.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Force_Block_D_F_Build000.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="27" lean-forward="false" selection-start-line="0" selection-start-column="27" selection-end-line="0" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Force_Block_H_Build000.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="27" lean-forward="false" selection-start-line="0" selection-start-column="27" selection-end-line="0" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Force_Block_V_F_Build001.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="27" lean-forward="false" selection-start-line="0" selection-start-column="27" selection-end-line="0" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Force_Build002.py" />
+    <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Input_Build002.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="27" lean-forward="false" selection-start-line="0" selection-start-column="27" selection-end-line="0" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Misc_Build001.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="27" lean-forward="false" selection-start-line="0" selection-start-column="27" selection-end-line="0" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAPCOR-POST_v04j_Build000.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" column="27" lean-forward="false" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Build000.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Force_Block_D_F_Build000.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="27" lean-forward="false" selection-start-line="0" selection-start-column="27" selection-end-line="0" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Force_Block_H_Build000.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="27" lean-forward="false" selection-start-line="0" selection-start-column="27" selection-end-line="0" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Force_Block_V_F_Build001.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="27" lean-forward="false" selection-start-line="0" selection-start-column="27" selection-end-line="0" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Force_Build002.py" />
+    <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Input_Build002.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="27" lean-forward="false" selection-start-line="0" selection-start-column="27" selection-end-line="0" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Misc_Build001.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="27" lean-forward="false" selection-start-line="0" selection-start-column="27" selection-end-line="0" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAPCOR-POST_v04j_Build000.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" column="27" lean-forward="false" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAPCOR-POST_v04j_Build000.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="6" column="27" lean-forward="false" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Force_Build002.py" />
+    <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Force_Block_D_F_Build000.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="27" lean-forward="false" selection-start-line="0" selection-start-column="27" selection-end-line="0" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Force_Block_H_Build000.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="27" lean-forward="false" selection-start-line="0" selection-start-column="27" selection-end-line="0" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Input_Build002.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="27" lean-forward="false" selection-start-line="0" selection-start-column="27" selection-end-line="0" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Misc_Build001.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="27" lean-forward="false" selection-start-line="0" selection-start-column="27" selection-end-line="0" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Build000.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="17" lean-forward="false" selection-start-line="22" selection-start-column="17" selection-end-line="22" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="1595" column="0" lean-forward="false" selection-start-line="1595" selection-start-column="0" selection-end-line="1595" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Program Files/Anaconda2/Lib/urllib.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="1283" column="0" lean-forward="false" selection-start-line="1283" selection-start-column="0" selection-end-line="1283" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydevd_bundle/pydevd_utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="121" column="0" lean-forward="false" selection-start-line="121" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Force_Build003.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="534" column="7" lean-forward="false" selection-start-line="534" selection-start-column="2" selection-end-line="534" selection-end-column="7" />
+          <folding>
+            <element signature="e#173#196#0" expanded="false" />
+            <element signature="e#775#798#0" expanded="false" />
+            <element signature="e#840#1064#0" expanded="false" />
+            <element signature="e#1200#1222#0" expanded="false" />
+            <element signature="e#1342#1381#0" expanded="false" />
+            <element signature="e#2249#2542#1" expanded="false" />
+            <element signature="e#2626#2670#0" expanded="false" />
+            <element signature="e#2673#2687#0" expanded="false" />
+            <element signature="e#3022#3038#0" expanded="false" />
+            <element signature="e#3070#3116#0" expanded="false" />
+            <element signature="e#3222#3252#0" expanded="false" />
+            <element signature="e#3936#3971#0" expanded="false" />
+            <element signature="e#3974#4020#0" expanded="false" />
+            <element signature="e#4467#4496#0" expanded="false" />
+            <element signature="e#4645#4669#0" expanded="false" />
+            <element signature="e#5063#5079#0" expanded="false" />
+            <element signature="e#5340#5357#0" expanded="false" />
+            <element signature="e#5386#8961#0" expanded="false" />
+            <element signature="e#5386#5414#0" expanded="false" />
+            <element signature="e#5448#8917#0" expanded="false" />
+            <element signature="e#5526#5554#0" expanded="false" />
+            <element signature="e#5615#5799#0" expanded="false" />
+            <element signature="e#5997#6027#0" expanded="false" />
+            <element signature="e#6087#6275#0" expanded="false" />
+            <element signature="e#6327#6369#0" expanded="false" />
+            <element signature="e#6459#6529#0" expanded="false" />
+            <element signature="e#6569#6807#0" expanded="false" />
+            <element signature="e#6978#7011#0" expanded="false" />
+            <element signature="e#7037#8817#0" expanded="false" />
+            <element signature="e#7037#7058#0" expanded="false" />
+            <element signature="e#7258#7276#0" expanded="false" />
+            <element signature="e#7502#7525#0" expanded="false" />
+            <element signature="e#7537#7565#0" expanded="false" />
+            <element signature="e#7609#8232#0" expanded="false" />
+            <element signature="e#7609#7648#0" expanded="false" />
+            <element signature="e#7839#7892#0" expanded="false" />
+            <element signature="e#7950#8140#0" expanded="false" />
+            <element signature="e#8287#8318#0" expanded="false" />
+            <element signature="e#8362#8527#0" expanded="false" />
+            <element signature="e#8584#8631#0" expanded="false" />
+            <element signature="e#9149#9175#0" expanded="false" />
+            <element signature="e#9266#9304#0" expanded="false" />
+            <element signature="e#9331#10226#0" expanded="false" />
+            <element signature="e#9624#10215#0" expanded="false" />
+            <element signature="e#9759#9827#0" expanded="false" />
+            <element signature="e#9918#10043#0" expanded="false" />
+            <element signature="e#10131#10201#0" expanded="false" />
+            <element signature="e#10412#10432#0" expanded="false" />
+            <element signature="e#10438#10512#0" expanded="false" />
+            <element signature="e#11380#11770#0" expanded="false" />
+            <element signature="e#11409#11538#0" expanded="false" />
+            <element signature="e#11575#11658#0" expanded="false" />
+            <element signature="e#11964#11987#0" expanded="false" />
+            <element signature="e#11992#12066#0" expanded="false" />
+            <element signature="e#12375#12682#0" expanded="false" />
+            <element signature="e#12375#12411#0" expanded="false" />
+            <element signature="e#12892#12910#0" expanded="false" />
+            <element signature="e#13040#13061#0" expanded="false" />
+            <element signature="e#13110#13322#0" expanded="false" />
+            <element signature="e#13360#13542#0" expanded="false" />
+            <element signature="e#13575#13687#0" expanded="false" />
+            <element signature="e#13688#13748#0" expanded="false" />
+            <element signature="e#13965#14319#0" expanded="false" />
+            <element signature="e#14078#14138#0" expanded="false" />
+            <element signature="e#14364#14365#0" expanded="false" />
+            <element signature="e#14662#14694#0" expanded="false" />
+            <element signature="e#14952#15001#0" expanded="false" />
+            <element signature="e#15117#15918#0" expanded="false" />
+            <element signature="e#15117#15473#1" expanded="false" />
+            <element signature="e#16539#16545#0" expanded="false" />
+            <element signature="e#16661#16667#0" expanded="false" />
+            <element signature="e#17727#17729#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Build001.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="419" column="0" lean-forward="false" selection-start-line="419" selection-start-column="0" selection-end-line="419" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+            <element signature="e#118#189#0" expanded="false" />
+            <element signature="e#499#568#0" expanded="false" />
+            <element signature="e#803#872#0" expanded="false" />
+            <element signature="e#996#1217#0" expanded="false" />
+            <element signature="e#1218#1287#0" expanded="false" />
+            <element signature="e#1931#2002#0" expanded="false" />
+            <element signature="e#2028#2571#0" expanded="false" />
+            <element signature="e#2172#2512#0" expanded="false" />
+            <element signature="e#2371#2473#0" expanded="false" />
+            <element signature="e#2484#2512#0" expanded="false" />
+            <element signature="e#2957#3108#0" expanded="false" />
+            <element signature="e#3119#3189#0" expanded="false" />
+            <element signature="e#3525#3599#0" expanded="false" />
+            <element signature="e#3799#4224#0" expanded="false" />
+            <element signature="e#3838#3941#0" expanded="false" />
+            <element signature="e#3989#4220#0" expanded="false" />
+            <element signature="e#4098#4211#0" expanded="false" />
+            <element signature="e#4388#4441#0" expanded="false" />
+            <element signature="e#4442#4444#0" expanded="false" />
+            <element signature="e#4709#4868#0" expanded="false" />
+            <element signature="e#4824#4856#0" expanded="false" />
+            <element signature="e#4938#5014#0" expanded="false" />
+            <element signature="e#5131#5346#0" expanded="false" />
+            <element signature="e#5347#5423#0" expanded="false" />
+            <element signature="e#5577#5718#0" expanded="false" />
+            <element signature="e#5718#5793#0" expanded="false" />
+            <element signature="e#5942#5988#0" expanded="false" />
+            <element signature="e#5992#6067#0" expanded="false" />
+            <element signature="e#6209#6338#0" expanded="false" />
+            <element signature="e#6338#6413#0" expanded="false" />
+            <element signature="e#6544#6584#0" expanded="false" />
+            <element signature="e#6588#6663#0" expanded="false" />
+            <element signature="e#7456#7531#0" expanded="false" />
+            <element signature="e#7660#9194#0" expanded="false" />
+            <element signature="e#8112#8197#0" expanded="false" />
+            <element signature="e#8275#8364#0" expanded="false" />
+            <element signature="e#8524#8646#0" expanded="false" />
+            <element signature="e#8792#8902#0" expanded="false" />
+            <element signature="e#9014#9116#0" expanded="false" />
+            <element signature="e#9291#9344#0" expanded="false" />
+            <element signature="e#9527#9789#0" expanded="false" />
+            <element signature="e#9527#9574#0" expanded="false" />
+            <element signature="e#9817#10292#0" expanded="false" />
+            <element signature="e#9898#10172#0" expanded="false" />
+            <element signature="e#10214#10292#0" expanded="false" />
+            <element signature="e#10292#10346#0" expanded="false" />
+            <element signature="e#10545#10547#0" expanded="false" />
+            <element signature="e#10628#10664#0" expanded="false" />
+            <element signature="e#10846#10881#0" expanded="false" />
+            <element signature="e#11593#11672#0" expanded="false" />
+            <element signature="e#11673#11674#0" expanded="false" />
+            <element signature="e#11985#13539#0" expanded="false" />
+            <element signature="e#12106#12259#0" expanded="false" />
+            <element signature="e#12467#12838#0" expanded="false" />
+            <element signature="e#12999#13319#0" expanded="false" />
+            <element signature="e#13135#13302#0" expanded="false" />
+            <element signature="e#13632#13711#0" expanded="false" />
+            <element signature="e#13713#13792#0" expanded="false" />
+            <element signature="e#13857#20924#0" expanded="false" />
+            <element signature="e#13916#13940#0" expanded="false" />
+            <element signature="e#14030#14032#0" expanded="false" />
+            <element signature="e#14160#16139#0" expanded="false" />
+            <element signature="e#14160#14201#0" expanded="false" />
+            <element signature="e#14525#14527#0" expanded="false" />
+            <element signature="e#14665#14667#0" expanded="false" />
+            <element signature="e#14784#14786#0" expanded="false" />
+            <element signature="e#14998#15106#0" expanded="false" />
+            <element signature="e#15128#16139#0" expanded="false" />
+            <element signature="e#15177#16130#0" expanded="false" />
+            <element signature="e#15177#15193#0" expanded="false" />
+            <element signature="e#15364#15502#0" expanded="false" />
+            <element signature="e#15717#16130#0" expanded="false" />
+            <element signature="e#16024#16049#0" expanded="false" />
+            <element signature="e#16139#16165#0" expanded="false" />
+            <element signature="e#16652#16730#0" expanded="false" />
+            <element signature="e#16875#16964#0" expanded="false" />
+            <element signature="e#16966#17012#0" expanded="false" />
+            <element signature="e#17063#17204#0" expanded="false" />
+            <element signature="e#17239#17371#0" expanded="false" />
+            <element signature="e#17576#17578#0" expanded="false" />
+            <element signature="e#20928#20965#0" expanded="false" />
+            <element signature="e#21137#21216#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAPCOR_v04j_Force_Block_V_F_Build001.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="465" column="0" lean-forward="false" selection-start-line="465" selection-start-column="0" selection-end-line="465" selection-end-column="0" />
+          <folding>
+            <element signature="e#114#193#0" expanded="false" />
+            <element signature="e#1416#14722#0" expanded="false" />
+            <element signature="e#1421#1662#1" expanded="false" />
+            <element signature="e#1681#1697#0" expanded="false" />
+            <element signature="e#1905#1928#0" expanded="false" />
+            <element signature="e#1968#2000#0" expanded="false" />
+            <element signature="e#2331#2365#0" expanded="false" />
+            <element signature="e#2415#2709#0" expanded="false" />
+            <element signature="e#2722#2882#0" expanded="false" />
+            <element signature="e#3026#3063#0" expanded="false" />
+            <element signature="e#3066#3097#0" expanded="false" />
+            <element signature="e#3394#3569#0" expanded="false" />
+            <element signature="e#3736#3760#0" expanded="false" />
+            <element signature="e#4181#4230#0" expanded="false" />
+            <element signature="e#4246#4798#0" expanded="false" />
+            <element signature="e#4852#5240#0" expanded="false" />
+            <element signature="e#6060#6084#0" expanded="false" />
+            <element signature="e#6678#6694#0" expanded="false" />
+            <element signature="e#7601#7614#0" expanded="false" />
+            <element signature="e#7705#7720#0" expanded="false" />
+            <element signature="e#8064#8099#0" expanded="false" />
+            <element signature="e#8349#8363#0" expanded="false" />
+            <element signature="e#9213#9238#0" expanded="false" />
+            <element signature="e#9351#14581#0" expanded="false" />
+            <element signature="e#9530#9543#0" expanded="false" />
+            <element signature="e#9621#10680#0" expanded="false" />
+            <element signature="e#9899#10625#0" expanded="false" />
+            <element signature="e#9899#9928#0" expanded="false" />
+            <element signature="e#9972#10044#0" expanded="false" />
+            <element signature="e#10069#10277#0" expanded="false" />
+            <element signature="e#10343#10394#0" expanded="false" />
+            <element signature="e#10952#11865#0" expanded="false" />
+            <element signature="e#11230#11810#0" expanded="false" />
+            <element signature="e#11302#11374#0" expanded="false" />
+            <element signature="e#11399#11585#0" expanded="false" />
+            <element signature="e#12044#12067#0" expanded="false" />
+            <element signature="e#12919#12935#0" expanded="false" />
+            <element signature="e#13905#13918#0" expanded="false" />
+            <element signature="e#14141#14308#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
