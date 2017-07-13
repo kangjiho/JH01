@@ -1,9 +1,10 @@
-VERSION_NAME = 'SAPCOR_v04g'
+VERSION_NAME = 'SAPCOR_v04h'
 
 # MODULE NAME
 MODULE_NAME_THIS__FORCE_BLOCK_D = VERSION_NAME+'_Force_Block_D'
 
-
+###############################################################################
+#{    SYSTEM INITIALIZATION
 
 import glob
 
@@ -30,6 +31,8 @@ for Module_Name in MODULE_NAMES_FORCE_BLOCK_D:
 
 from numpy import loadtxt
 from numpy import array,zeros,hstack
+
+#}#############################################################################
 
 
 
@@ -225,13 +228,41 @@ def Force_Block_D_F (w,t,Core,K,L,Accel,POST=False,FO_DIR=FO_DIR):
 
   #{ POST
   if POST==True:
+
+    # FILENAME
+    Filename = FO_DIR+'/(%2d,%2d)_D.csv'%(K,L)
+
+    #{ HEADER
+    try: fo = open(Filename,'r')
+    except: # File doesn't exist -> This is the first time. Make header.
+      temp  = 't,'
+      temp += 'BetaL,F_DLk,dBetaL,F_DLc,F_DL,M_DL,M_DLm,'
+      temp += 'BetaR,F_DRk,dBetaR,F_DRc,F_DR,M_DR,M_DRm\n'
+      fo = open(Filename,'w')
+      fo.write(temp)
+      fo.close()
+    #}
+
+    #{ F_DLk, F_DLc, F_DRk, F_DRc
+    F_DLk = F_DLc = 0.
+    F_DRk = F_DRc = 0.
+    if Beta_L<0:
+      F_DLk = Kd * Beta_L
+      F_DLc = Cd * DBeta_L
+    if Beta_R>0:
+      F_DRk = Kd * Beta_R
+      F_DRc = Cd * DBeta_R
+    #}
+
+    #{ WRITE
     temp  = '%e, '%t
-    temp += '%e, %e, %e, %e, %e, '%( Beta_L, DBeta_L, F_DL, M_DL, M_DLm)
-    temp += '%e, %e, %e, %e, %e  '%( Beta_R, DBeta_R, F_DR, M_DR, M_DRm)
-    temp += '\n'
-    fo = open(FO_DIR+'/(%2d,%2d)_D.csv'%(K,L),'a')
+    #        1   2   3   4   5   6   7    : 1       2      3        4      5     6     7
+    temp += '%e, %e, %e, %e, %e, %e, %e, '%(Beta_L, F_DLk, DBeta_L, F_DLc, F_DL, M_DL, M_DLm)
+    temp += '%e, %e, %e, %e, %e, %e, %e\n'%(Beta_R, F_DRk, DBeta_R, F_DRc, F_DR, M_DR, M_DRm)
+    fo = open(Filename,'a')
     fo.write(temp)
     fo.close()
+    #}
   #}
 
   #} END OF DOWEL FORCES
@@ -375,13 +406,30 @@ def Force_Block_D_F (w,t,Core,K,L,Accel,POST=False,FO_DIR=FO_DIR):
     
     #{ POST
     if POST==True:
+
+      # FILENAME
+      Filename = FO_DIR+'/(%2d,%2d)_DF.csv'%(K,L)
+
+      #{ HEADER
+      try: fo = open(Filename,'r')
+      except: # File doesn't exist -> This is the first time. Make header.
+        temp  = 't,'
+        temp += 'OmegaL,F_DFL,M_DFL,M_DFLm,'
+        temp += 'OmegaR,F_DFR,M_DFR,M_DFRm\n'
+        fo = open(Filename,'w')
+        fo.write(temp)
+        fo.close()
+      #}
+
+      #{ WRITE
       temp  = '%e, '%t
       temp += '%e, %e, %e, %e, '%( omega_L, F_DFL, M_DFL, M_DFLm )
       temp += '%e, %e, %e, %e  '%( omega_R, F_DFR, M_DFR, M_DFRm )
       temp += '\n'
-      fo = open(FO_DIR+'/(%2d,%2d)_DF.csv'%(K,L),'a')
+      fo = open(Filename,'a')
       fo.write(temp)
       fo.close()
+      #}
     #}
 
 

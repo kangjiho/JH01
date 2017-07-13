@@ -4,7 +4,7 @@
 """Seismic Analysis POST for a Prismatic CORe of a HTGR
 """
 
-VERSION_NAME = 'SAPCOR_v04g'
+VERSION_NAME = 'SAPCOR_v04h'
 
 ###############################################################################
 #{    SYSTEM INITIALIZATION
@@ -51,7 +51,7 @@ day = temp.tm_mday
 hour = temp.tm_hour
 minute = temp.tm_min
 second = temp.tm_sec
-FO_DIR = 'Output_%4d-%02d-%02d_%02dh%02dm%02ds'%(year,month,day,hour,minute,second)
+FO_DIR = 'POST_%4d-%02d-%02d_%02dh%02dm%02ds'%(year,month,day,hour,minute,second)
 os.mkdir(FO_DIR)
 VerboseInit(FO_DIR)
 #} Make Output Folder =========================================================
@@ -86,6 +86,36 @@ def CheckIndex (Core):
   if NError>0:
     ERROR('ERROR: Index Mismatch')
   return
+
+def ERROR (ERR_MSG_LIST,Align='Left'):
+#{
+  Msg  = '\n'*3+'='*79+'\n'
+  Msg += '='+' '*34+'E R R O R'+' '*34+'=\n'
+  Msg += '='*79+'\n'
+  Msg += '='+' '*77+'=\n'
+
+  if Align == 'Left':
+    # LEFT-ALIGNED FORMAT
+    for ERR_MSG in ERR_MSG_LIST:
+      Length = len(ERR_MSG)
+      NBlankR = 75 - Length
+      Msg += '='+'  '+ERR_MSG+' '*NBlankR+'=\n'
+  else:
+    # CENTERED FORMAT
+    for ERR_MSG in ERR_MSG_LIST:
+      Length = len(ERR_MSG)
+      NBlankL = NBlankR = 38 - Length/2
+      if Length%2 == 0: NBlankR += 1
+      Msg += '='+' '*NBlankL+ERR_MSG+' '*NBlankR+'=\n'
+
+  Msg += '='+' '*77+'=\n'
+  Msg += '='*79+'\n'
+  Msg += '\n'*3
+  Verbose(Msg)  
+  raise
+  return
+#}
+
 #}                               LOCAL FUNCTIONS                              #
 ###############################################################################
 
@@ -379,10 +409,6 @@ if '/Init/' in VERBOSE:
   for i in xrange(len(StartValues)):
     if StartValues[i]!=0.:
       Verbose('StartValues[%d]=%f'%(i,StartValues[i]))
-#}
-
-
-
 #}----------------------------------------------------
 
 
@@ -425,8 +451,12 @@ raw_input('PRESS ENTER TO CONTINUE!')
 
 #-----------------------------------------------------------------------------
 #{ READ STATE VECTOR
-Ts=loadtxt('Time.csv')
-StateVectors=loadtxt('StateVector.csv',delimiter=',')
+try:
+  Ts=loadtxt('Time.csv')
+  StateVectors=loadtxt('StateVector.csv',delimiter=',')
+except:
+  ERROR(["Cannot find 'Time.csv' and 'StateVector.csv'.",
+         "Please copy both files to this directory."])
 temp = zip(Ts,StateVectors)
 #}
 #-----------------------------------------------------------------------------
@@ -435,7 +465,8 @@ temp = zip(Ts,StateVectors)
 #{ LOOP
 for t,StateVector in temp:
 
-  print 'Time=',t
+  Msg = 'Time = %g'%t
+  Verbose(Msg)  
   Accel = VectorField(StateVector, t, Core, VERBOSE='', POST=True, FO_DIR=FO_DIR)
   
 

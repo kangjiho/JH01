@@ -4,7 +4,7 @@
 """Seismic Analysis for a Prismatic CORe of a HTGR
 """
 
-VERSION_NAME = 'SAPCOR_v04g'
+VERSION_NAME = 'SAPCOR_v04h'
 
 ###############################################################################
 #{    SYSTEM INITIALIZATION
@@ -501,7 +501,8 @@ if( FLAG_TestForce==True ):
 
 while CurrentTime<TotalTime:
 
-  print 'Current Time=',CurrentTime
+  Msg  = 'Current Time = %f'%CurrentTime
+  Verbose(Msg)
   
   # Prepare Integration #{
   # Reset SectionTime
@@ -586,9 +587,9 @@ while CurrentTime<TotalTime:
   #-----------------------------------------------------------------------------
   #  PERFORMANCE MEASUREMENT #{
   a,b,c,d,e,f = PerfResult_VectorField()
-  Msg  = '=== Performance Measurement ===\n'
-  Msg += 'VectorField() of this section: NRun=%d, RunTime=%.1f, Avg=%.1fms\n'%(a,b,c*1000)
-  Msg += 'VectorField() of total run   : NRun=%d, RunTime=%.1f, Avg=%.1fms'%(d,e,f*1000)
+  Msg  = '  === Performance Measurement ===\n'
+  Msg += '  VectorField() of this section: NRun=%d, RunTime=%.1f, Avg=%.1fms\n'%(a,b,c*1000)
+  Msg += '  VectorField() of total run   : NRun=%d, RunTime=%.1f, Avg=%.1fms'%(d,e,f*1000)
   Verbose(Msg)
   #}----------------------------------------------------------------------------
 
@@ -598,7 +599,7 @@ while CurrentTime<TotalTime:
   #   Save Results #{
 
   if OP_CoreShape_TimeFreq != 0:
-    print 'Post_CoreShape',
+    print '  Post_CoreShape',
     Post_CoreShape(t,Solution,Core,FO_DIR)
     print 'Finished'
 
@@ -606,13 +607,13 @@ while CurrentTime<TotalTime:
 #  print '3'
 
   if OP_Solution_TimeFreq != 0:
-    print 'Post_Solution',
+    print '  Post_Solution',
 #    Post_Solution(t,Solution,Accel,Core,FO_DIR)
     Post_Solution(t,Solution,None,Core,FO_DIR)
     print 'Finished'
 
   if OP_Block_TimeFreq != 0:
-    print 'Post_Block',
+    print '  Post_Block',
 #    Post_Block(t,Solution,Accel,Core,FO_DIR)
     Post_Block(t,Solution,None,Core,FO_DIR)
     print 'Finished'

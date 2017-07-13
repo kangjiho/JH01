@@ -1,5 +1,55 @@
-VERSION_NAME = 'SAPCOR_v04g'
+VERSION_NAME = 'SAPCOR_v04h'
 
+###############################################################################
+#
+#                            SYSYTEM INTILIZATION
+#
+#                         !!!! DO NOT MODIFY THIS !!!!
+#                         !!!! DO NOT MODIFY THIS !!!!
+#                         !!!! DO NOT MODIFY THIS !!!!
+#{
+
+def ERROR (ERR_MSG_LIST,Align='Left'):
+#{
+  Msg  = '\n'*3+'='*79+'\n'
+  Msg += '='+' '*34+'E R R O R'+' '*34+'=\n'
+  Msg += '='*79+'\n'
+  Msg += '='+' '*77+'=\n'
+
+  if Align == 'Left':
+    # LEFT-ALIGNED FORMAT
+    for ERR_MSG in ERR_MSG_LIST:
+      Length = len(ERR_MSG)
+      NBlankR = 75 - Length
+      Msg += '='+'  '+ERR_MSG+' '*NBlankR+'=\n'
+  else:
+    # CENTERED FORMAT
+    for ERR_MSG in ERR_MSG_LIST:
+      Length = len(ERR_MSG)
+      NBlankL = NBlankR = 38 - Length/2
+      if Length%2 == 0: NBlankR += 1
+      Msg += '='+' '*NBlankL+ERR_MSG+' '*NBlankR+'=\n'
+
+  Msg += '='+' '*77+'=\n'
+  Msg += '='*79+'\n'
+  Msg += '\n'*3
+  print Msg  
+  raise
+  return
+#}
+
+#{ CHECK VERSION_NAME  
+import os
+MyFileName = os.path.basename(__file__)
+print MyFileName[:len(VERSION_NAME)]
+if MyFileName[:len(VERSION_NAME)] != VERSION_NAME:
+  MsgList  = ["VERSION_NAME doesn't match with the File Name."]
+  MsgList += ["VERSION_NAME: %s"%VERSION_NAME]
+  MsgList += ["File Name: %s"%MyFileName]
+  ERROR(MsgList)
+#}
+
+#}#############################################################################
 
 
 
@@ -231,8 +281,8 @@ OP_Solution_TimeFreq = 0
 
 # Block Data Sampling Frequency (0:Skip)
 # What is "Block Data" : All time response from beginning of a block
-OP_Block_TimeFreq = 0
-#OP_Block_TimeFreq = 0.001
+#OP_Block_TimeFreq = 0
+OP_Block_TimeFreq = 0.001
 
 #}
 

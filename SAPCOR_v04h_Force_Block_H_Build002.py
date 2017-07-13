@@ -1,9 +1,10 @@
-VERSION_NAME = 'SAPCOR_v04g'
+VERSION_NAME = 'SAPCOR_v04h'
 
 # MODULE NAME
 MODULE_NAME_THIS__FORCE_BLOCK_H = VERSION_NAME+'_Force_Block_H'
 
-
+###############################################################################
+#{    SYSTEM INITIALIZATION
 
 import glob
 
@@ -30,6 +31,8 @@ for Module_Name in MODULE_NAMES_FORCE_BLOCK_H:
 
 from numpy import loadtxt
 from numpy import array,zeros,hstack
+
+#}#############################################################################
 
 
 
@@ -221,12 +224,35 @@ def Force_Block_H (w,t,Core,K,L,Accel,POST=False,FO_DIR=FO_DIR):
 
     #{ POST TR
     if POST==True:
+
+      # FILENAME
+      Filename = FO_DIR+'/(%2d,%2d)_TR.csv'%(K,L)
+
+      #{ HEADER
+      try: fo = open(Filename,'r')
+      except: # File doesn't exist -> This is the first time. Make header.
+        temp  = 't,'
+        temp += 'Epsil,F_TRk,dEpsil,F_TRc,F_TR,M_TR\n'
+        fo = open(Filename,'w')
+        fo.write(temp)
+        fo.close()
+      #}
+
+      #{ F_TRk, F_TRc
+      F_TRk = F_TRc = 0.
+      if Epsilon > 0:
+        F_TRk = -Kh *  Epsilon
+        F_TRc = -Ch * DEpsilon
+      #}
+
+      #{ WRITE
       temp  = '%e, '%t
-      temp += '%e, %e, %e, %e '%( Epsilon, DEpsilon, Force, Moment )
-      temp += '\n'
-      fo = open(FO_DIR+'/(%2d,%2d)_HTR.csv'%(K,L),'a')
+#              1   2   3   4   5   6    : 1        2      3         4      5      6
+      temp += '%e, %e, %e, %e, %e, %e\n'%(Epsilon, F_TRk, DEpsilon, F_TRc, Force, Moment )
+      fo = open(Filename,'a')
       fo.write(temp)
       fo.close()
+      #}
     #}
 
     # --------------------------------------------------------------------------
@@ -346,12 +372,35 @@ def Force_Block_H (w,t,Core,K,L,Accel,POST=False,FO_DIR=FO_DIR):
 
     #{ POST MR
     if POST==True:
+
+      # FILENAME
+      Filename = FO_DIR+'/(%2d,%2d)_MR.csv'%(K,L)
+
+      #{ HEADER
+      try: fo = open(Filename,'r')
+      except: # File doesn't exist -> This is the first time. Make header.
+        temp  = 't,'
+        temp += 'Epsil,F_MRk,dEpsil,F_MRc,F_MR,M_MR\n'
+        fo = open(Filename,'w')
+        fo.write(temp)
+        fo.close()
+      #}
+
+      #{ F_MRk, F_MRc
+      F_MRk = F_MRc = 0.
+      if Epsilon > 0:
+        F_MRk = -Kh *  Epsilon
+        F_MRc = -Ch * DEpsilon
+      #}
+
+      #{ WRITE
       temp  = '%e, '%t
-      temp += '%e, %e, %e, %e '%( Epsilon, DEpsilon, Force, Moment )
-      temp += '\n'
-      fo = open(FO_DIR+'/(%2d,%2d)_HMR.csv'%(K,L),'a')
+#              1   2   3   4   5   6    : 1        2      3         4      5      6
+      temp += '%e, %e, %e, %e\n'%( Epsilon, F_MRk, DEpsilon, F_MRc, Force, Moment )
+      fo = open(Filename,'a')
       fo.write(temp)
       fo.close()
+      #}
     #}
     
     # --------------------------------------------------------------------------
@@ -472,12 +521,35 @@ def Force_Block_H (w,t,Core,K,L,Accel,POST=False,FO_DIR=FO_DIR):
 
     #{ POST NR
     if POST==True:
+
+      # FILENAME
+      Filename = FO_DIR+'/(%2d,%2d)_NR.csv'%(K,L)
+
+      #{ HEADER
+      try: fo = open(Filename,'r')
+      except: # File doesn't exist -> This is the first time. Make header.
+        temp  = 't,'
+        temp += 'Epsil,F_NRk,dEpsil,F_NRc,F_NR,M_NR\n'
+        fo = open(Filename,'w')
+        fo.write(temp)
+        fo.close()
+      #}
+
+      #{ F_NRk, F_NRc
+      F_NRk = F_NRc = 0.
+      if Epsilon > 0:
+        F_NRk = -Kh *  Epsilon
+        F_NRc = -Ch * DEpsilon
+      #}
+
+      #{ WRITE
       temp  = '%e, '%t
-      temp += '%e, %e, %e, %e '%( Epsilon, DEpsilon, Force, Moment )
-      temp += '\n'
-      fo = open(FO_DIR+'/(%2d,%2d)_HNR.csv'%(K,L),'a')
+#              1   2   3   4   5   6    : 1        2      3         4      5      6
+      temp += '%e, %e, %e, %e\n'%( Epsilon, F_NRk, DEpsilon, F_NRc, Force, Moment )
+      fo = open(Filename,'a')
       fo.write(temp)
       fo.close()
+      #}
     #}
     
     # --------------------------------------------------------------------------
@@ -597,12 +669,35 @@ def Force_Block_H (w,t,Core,K,L,Accel,POST=False,FO_DIR=FO_DIR):
 
     #{ POST BR
     if POST==True:
+
+      # FILENAME
+      Filename = FO_DIR+'/(%2d,%2d)_BR.csv'%(K,L)
+
+      #{ HEADER
+      try: fo = open(Filename,'r')
+      except: # File doesn't exist -> This is the first time. Make header.
+        temp  = 't,'
+        temp += 'Epsil,F_BRk,dEpsil,F_BRc,F_BR,M_BR\n'
+        fo = open(Filename,'w')
+        fo.write(temp)
+        fo.close()
+      #}
+
+      #{ F_BRk, F_BRc
+      F_BRk = F_BRc = 0.
+      if Epsilon > 0:
+        F_BRk = -Kh *  Epsilon
+        F_BRc = -Ch * DEpsilon
+      #}
+
+      #{ WRITE
       temp  = '%e, '%t
-      temp += '%e, %e, %e, %e '%( Epsilon, DEpsilon, Force, Moment )
-      temp += '\n'
-      fo = open(FO_DIR+'/(%2d,%2d)_HBR.csv'%(K,L),'a')
+#              1   2   3   4   5   6    : 1        2      3         4      5      6
+      temp += '%e, %e, %e, %e\n'%( Epsilon, F_BRk, DEpsilon, F_BRc, Force, Moment )
+      fo = open(Filename,'a')
       fo.write(temp)
       fo.close()
+      #}
     #}
 
     # --------------------------------------------------------------------------
@@ -749,12 +844,35 @@ def Force_Block_H (w,t,Core,K,L,Accel,POST=False,FO_DIR=FO_DIR):
 
     #{ POST TL
     if POST==True:
+
+      # FILENAME
+      Filename = FO_DIR+'/(%2d,%2d)_TL.csv'%(K,L)
+
+      #{ HEADER
+      try: fo = open(Filename,'r')
+      except: # File doesn't exist -> This is the first time. Make header.
+        temp  = 't,'
+        temp += 'Epsil,F_TLk,dEpsil,F_TLc,F_TL,M_TL\n'
+        fo = open(Filename,'w')
+        fo.write(temp)
+        fo.close()
+      #}
+
+      #{ F_TLk, F_TLc
+      F_TLk = F_TLc = 0.
+      if Epsilon > 0:
+        F_TLk = +Kh *  Epsilon
+        F_TLc = +Ch * DEpsilon
+      #}
+
+      #{ WRITE
       temp  = '%e, '%t
-      temp += '%e, %e, %e, %e '%( Epsilon, DEpsilon, Force, Moment )
-      temp += '\n'
-      fo = open(FO_DIR+'/(%2d,%2d)_HTL.csv'%(K,L),'a')
+#              1   2   3   4   5   6    : 1        2      3         4      5      6
+      temp += '%e, %e, %e, %e, %e, %e\n'%(Epsilon, F_TLk, DEpsilon, F_TLc, Force, Moment )
+      fo = open(Filename,'a')
       fo.write(temp)
       fo.close()
+      #}
     #}
        
     # --------------------------------------------------------------------------
@@ -877,12 +995,35 @@ def Force_Block_H (w,t,Core,K,L,Accel,POST=False,FO_DIR=FO_DIR):
 
     #{ POST ML
     if POST==True:
+      
+      # FILENAME
+      Filename = FO_DIR+'/(%2d,%2d)_ML.csv'%(K,L)
+
+      #{ HEADER
+      try: fo = open(Filename,'r')
+      except: # File doesn't exist -> This is the first time. Make header.
+        temp  = 't,'
+        temp += 'Epsil,F_MLk,dEpsil,F_MLc,F_ML,M_ML\n'
+        fo = open(Filename,'w')
+        fo.write(temp)
+        fo.close()
+      #}
+
+      #{ F_MLk, F_MLc
+      F_MLk = F_MLc = 0.
+      if Epsilon > 0:
+        F_MLk = +Kh *  Epsilon
+        F_MLc = +Ch * DEpsilon
+      #}
+
+      #{ WRITE
       temp  = '%e, '%t
-      temp += '%e, %e, %e, %e '%( Epsilon, DEpsilon, Force, Moment )
-      temp += '\n'
-      fo = open(FO_DIR+'/(%2d,%2d)_HML.csv'%(K,L),'a')
+#              1   2   3   4   5   6    : 1        2      3         4      5      6
+      temp += '%e, %e, %e, %e, %e, %e\n'%(Epsilon, F_MLk, DEpsilon, F_MLc, Force, Moment )
+      fo = open(Filename,'a')
       fo.write(temp)
       fo.close()
+      #}
     #}
     
     # --------------------------------------------------------------------------
@@ -1006,12 +1147,35 @@ def Force_Block_H (w,t,Core,K,L,Accel,POST=False,FO_DIR=FO_DIR):
 
     #{ POST NL
     if POST==True:
+
+      # FILENAME
+      Filename = FO_DIR+'/(%2d,%2d)_NL.csv'%(K,L)
+
+      #{ HEADER
+      try: fo = open(Filename,'r')
+      except: # File doesn't exist -> This is the first time. Make header.
+        temp  = 't,'
+        temp += 'Epsil,F_NLk,dEpsil,F_NLc,F_NL,M_NL\n'
+        fo = open(Filename,'w')
+        fo.write(temp)
+        fo.close()
+      #}
+
+      #{ F_NLk, F_NLc
+      F_NLk = F_NLc = 0.
+      if Epsilon > 0:
+        F_NLk = +Kh *  Epsilon
+        F_NLc = +Ch * DEpsilon
+      #}
+
+      #{ WRITE
       temp  = '%e, '%t
-      temp += '%e, %e, %e, %e '%( Epsilon, DEpsilon, Force, Moment )
-      temp += '\n'
-      fo = open(FO_DIR+'/(%2d,%2d)_HNL.csv'%(K,L),'a')
+#              1   2   3   4   5   6    : 1        2      3         4      5      6
+      temp += '%e, %e, %e, %e, %e, %e\n'%(Epsilon, F_NLk, DEpsilon, F_NLc, Force, Moment )
+      fo = open(Filename,'a')
       fo.write(temp)
       fo.close()
+      #}
     #}
     
     # --------------------------------------------------------------------------
@@ -1134,12 +1298,35 @@ def Force_Block_H (w,t,Core,K,L,Accel,POST=False,FO_DIR=FO_DIR):
 
     #{ POST BL
     if POST==True:
+
+      # FILENAME
+      Filename = FO_DIR+'/(%2d,%2d)_BL.csv'%(K,L)
+
+      #{ HEADER
+      try: fo = open(Filename,'r')
+      except: # File doesn't exist -> This is the first time. Make header.
+        temp  = 't,'
+        temp += 'Epsil,F_BLk,dEpsil,F_BLc,F_BL,M_BL\n'
+        fo = open(Filename,'w')
+        fo.write(temp)
+        fo.close()
+      #}
+
+      #{ F_BLk, F_BLc
+      F_BLk = F_BLc = 0.
+      if Epsilon > 0:
+        F_BLk = +Kh *  Epsilon
+        F_BLc = +Ch * DEpsilon
+      #}
+
+      #{ WRITE
       temp  = '%e, '%t
-      temp += '%e, %e, %e, %e '%( Epsilon, DEpsilon, Force, Moment )
-      temp += '\n'
-      fo = open(FO_DIR+'/(%2d,%2d)_HBL.csv'%(K,L),'a')
+#              1   2   3   4   5   6    : 1        2      3         4      5      6
+      temp += '%e, %e, %e, %e, %e, %e\n'%(Epsilon, F_BLk, DEpsilon, F_BLc, Force, Moment )
+      fo = open(Filename,'a')
       fo.write(temp)
       fo.close()
+      #}
     #}
     
     # --------------------------------------------------------------------------
