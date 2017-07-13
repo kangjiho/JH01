@@ -1,9 +1,10 @@
-VERSION_NAME = 'SAPCOR_v04f'
+VERSION_NAME = 'SAPCOR_v04i'
 
 # MODULE NAME
 MODULE_NAME_THIS__FORCE_BLOCK_D = VERSION_NAME+'_Force_Block_D'
 
-
+###############################################################################
+#{    SYSTEM INITIALIZATION
 
 import glob
 
@@ -31,23 +32,29 @@ for Module_Name in MODULE_NAMES_FORCE_BLOCK_D:
 from numpy import loadtxt
 from numpy import array,zeros,hstack
 
+#}#############################################################################
+
 
 
 #-------------------------------------------------------------------------
+def Force_Block_D_F (w,t,Core,K,L,Accel,POST=False,FO_DIR=FO_DIR):
+#{
+  
 
-def Force_Block_D_F (w,t,Core,K,L,Accel):
+  ##############################################################################
+  #{ DOWEL FORCES
+
   
-  
-  # VERBOSE
+  #{ VERBOSE
   if '/Force/' in VERBOSE:
     Verbose('<FORCE_BLOCK_D_F>')
     Verbose('time=%e (K,L)=(%d,%d)'%(t,K,L))
-
+  #} END OF VERBOSE
   
   # Column Size
   N = len(Core['Array'][K])
 
-  # Get Block Prop of (K,L)
+  #{ Get Block Prop of (K,L)
   BN = Core['BTNsKL'][K][L]
   BT = BlockTypes[BN]
   D = BT['d']
@@ -62,8 +69,9 @@ def Force_Block_D_F (w,t,Core,K,L,Accel):
   xi_F_cr = BT['xi_F_cr']
   omega_F_cr = xi_F_cr  # Use same critical relative velocity (can be changed)
 #  Fixed = BT['Fixed']
+  #} END OF GET BLOCK PROP (K,L)
 
-  # Get Block Prop of (K,L-1)
+  #{ Get Block Prop of (K,L-1)
   # Subscript, m, means 'Minus 1'
   if L!=1:
     BN = Core['BTNsKL'][K][L-1]
@@ -83,11 +91,11 @@ def Force_Block_D_F (w,t,Core,K,L,Accel):
       Hm = 0
       Mm = Im = 1
 #      Fixedm = 'FixedToBase'
- 
+  #} END OF GET BLOCK PROP OF (K,L-1)
 
 
 
-  # Get current state of (K,L)
+  #{ Get current state of (K,L)
   U,DU,W,DW,R,DR = GetSolFromVect(Core,w,K,L) # U,DU,W,DW,R,DR
 
   # Get current state of (K,L-1)
@@ -102,12 +110,12 @@ def Force_Block_D_F (w,t,Core,K,L,Accel):
       Um,DUm,Wm,DWm,Rm,DRm = GetSolFromVect(Core,w,1,0) # CSB
     else:
       Um,DUm,Wm,DWm,Rm,DRm = GetSolFromVect(Core,w,0,0) # Base
-    
+  #} END OF GET CURRENT STATE OF (K,L)  
 
 
 
 
-  # Signs
+  #{ Signs
   # (K,L-1)~(K,L)
   #       h1, d1, h2, d2, delta
   SL  = ( +1, +1, -1, +1, +1 )
@@ -119,11 +127,11 @@ def Force_Block_D_F (w,t,Core,K,L,Accel):
   SMR  = ( +1, +1 )
   SMLm = ( +1, +1 )
   SMRm = ( +1, -1 )
+  #} END OF SIGNS
 
 
 
-
-  # Spring Contraction between (K,L-1)~(K,L)
+  #{ Spring Contraction between (K,L-1)~(K,L)
   Beta_L  = Um + SL[0] * Hm * sin( Rm ) + SL[1] * D * (1-cos( Rm ))
   Beta_L -= U  + SL[2] * H  * sin( R  ) + SL[3] * D * (1-cos( R  ))
   Beta_L += SL[4] * DeltaD
@@ -135,11 +143,11 @@ def Force_Block_D_F (w,t,Core,K,L,Accel):
   DBeta_L -= DU  + ( SDL[2]*H *cos(R ) + SDL[3]*D*sin(R ) ) * DR
   DBeta_R  = DUm + ( SDR[0]*Hm*cos(Rm) + SDR[1]*D*sin(Rm) ) * DRm
   DBeta_R -= DU  + ( SDR[2]*H *cos(R ) + SDR[3]*D*sin(R ) ) * DR
-    
+  #} END OF SPRING CONTRACTION
 
 
 
-  # Forces and Moments
+  #{ Forces and Moments
   F_DL, F_DR = 0,0
   M_DL, M_DR, M_DLm, M_DRm = 0,0,0,0
   
@@ -187,11 +195,11 @@ def Force_Block_D_F (w,t,Core,K,L,Accel):
 
     M_DR  = -F_DR * ( SMR [0] *H *cos(R ) + SMR [1] *D*sin(R ) )
     M_DRm = -F_DR * ( SMRm[0] *Hm*cos(Rm) + SMRm[1] *D*sin(Rm) )
+  #} END OF FORCES AND MOMENTS
 
 
 
-
-  # Assemble Forces
+  #{ Assemble Forces
   AccelF  =  (F_DL  + F_DR ) / M
   AccelM  =  (M_DL  + M_DR ) / I
   AccelFm = -(F_DL  + F_DR ) / Mm
@@ -216,13 +224,56 @@ def Force_Block_D_F (w,t,Core,K,L,Accel):
 
   pass # if Base: Do nothing
         
+  #} END OF ASSEMBLE FORCES
+
+  #{ POST
+  if POST==True:
+
+    # FILENAME
+    Filename = FO_DIR+'/(%2d,%2d)_D.csv'%(K,L)
+
+    #{ HEADER
+    try: fo = open(Filename,'r')
+    except: # File doesn't exist -> This is the first time. Make header.
+      temp  = 't,'
+      temp += 'BetaL,F_DLk,dBetaL,F_DLc,F_DL,M_DL,M_DLm,'
+      temp += 'BetaR,F_DRk,dBetaR,F_DRc,F_DR,M_DR,M_DRm\n'
+      fo = open(Filename,'w')
+      fo.write(temp)
+      fo.close()
+    #}
+
+    #{ F_DLk, F_DLc, F_DRk, F_DRc
+    F_DLk = F_DLc = 0.
+    F_DRk = F_DRc = 0.
+    if Beta_L<0:
+      F_DLk = Kd * Beta_L
+      F_DLc = Cd * DBeta_L
+    if Beta_R>0:
+      F_DRk = Kd * Beta_R
+      F_DRc = Cd * DBeta_R
+    #}
+
+    #{ WRITE
+    temp  = '%e, '%t
+    #        1   2   3   4   5   6   7    : 1       2      3        4      5     6     7
+    temp += '%e, %e, %e, %e, %e, %e, %e, '%(Beta_L, F_DLk, DBeta_L, F_DLc, F_DL, M_DL, M_DLm)
+    temp += '%e, %e, %e, %e, %e, %e, %e\n'%(Beta_R, F_DRk, DBeta_R, F_DRc, F_DR, M_DR, M_DRm)
+    fo = open(Filename,'a')
+    fo.write(temp)
+    fo.close()
+    #}
+  #}
+
+  #} END OF DOWEL FORCES
+  ##############################################################################
 
 
+  ##############################################################################
+  #{  FRICTION FORCES
+  ##############################################################################
 
 
-##############################################################################
-#  FRICTION FORCES
-##############################################################################
 
   if Core['ApplyForces']['Block_DF']==True:
 
@@ -231,7 +282,7 @@ def Force_Block_D_F (w,t,Core,K,L,Accel):
     F_DFL=F_DFLm=M_DFL=M_DFLm=F_DFR=F_DFRm=M_DFR=M_DFRm=0
     
     #===========================================================================
-    # LEFT start
+    #{ LEFT start
     
     # Vertical Reaction should be positive
     if F_DL<0: 
@@ -266,12 +317,12 @@ def Force_Block_D_F (w,t,Core,K,L,Accel):
     # Check Point: F_VL<=0 -> Do nothing
     
     
-    # LEFT end
+    #} LEFT end
     #===========================================================================
     
   
     #===========================================================================
-    # RIGHT start
+    #{ RIGHT start
     
     # Vertical Reaction should be positive
     if F_DR>0: 
@@ -306,10 +357,10 @@ def Force_Block_D_F (w,t,Core,K,L,Accel):
     # Check Point: F_VR<=0 -> Do nothing
     
     
-    # RIGHT end
+    #} RIGHT end
     #===========================================================================
   
-    # Assemble Accel
+    #{ Assemble Accel
     AccelF  =  (F_DFL  + F_DFR ) / M
     AccelM  =  (M_DFL  + M_DFR ) / I
     AccelFm = -(F_DFL  + F_DFR ) / Mm
@@ -331,9 +382,10 @@ def Force_Block_D_F (w,t,Core,K,L,Accel):
       pass # No vertical accel and moment on CSB
   
     pass # if Base: Do nothing
+    #} END OF ASSEMBLE ACCEL
+    
 
-
-    # VERBOSE
+    #{ VERBOSE
     if '/ForceDF/' in VERBOSE:
       Verbose('-'*80)
       Verbose('Force_Dowel_F(), Caculation Verification')
@@ -350,7 +402,41 @@ def Force_Block_D_F (w,t,Core,K,L,Accel):
         Verbose('Accel(%d,%d) = %e, %e'%(K,L-1,AccelFm,AccelMm))
         Verbose('Accel[%d] = %e'%(IndexWm+3,Accel[IndexWm+3]))
         Verbose('Accel[%d] = %e'%(IndexWm+5,Accel[IndexWm+5]))
+    #}
+    
+    #{ POST
+    if POST==True:
+
+      # FILENAME
+      Filename = FO_DIR+'/(%2d,%2d)_DF.csv'%(K,L)
+
+      #{ HEADER
+      try: fo = open(Filename,'r')
+      except: # File doesn't exist -> This is the first time. Make header.
+        temp  = 't,'
+        temp += 'OmegaL,F_DFL,M_DFL,M_DFLm,'
+        temp += 'OmegaR,F_DFR,M_DFR,M_DFRm\n'
+        fo = open(Filename,'w')
+        fo.write(temp)
+        fo.close()
+      #}
+
+      #{ WRITE
+      temp  = '%e, '%t
+      temp += '%e, %e, %e, %e, '%( omega_L, F_DFL, M_DFL, M_DFLm )
+      temp += '%e, %e, %e, %e  '%( omega_R, F_DFR, M_DFR, M_DFRm )
+      temp += '\n'
+      fo = open(Filename,'a')
+      fo.write(temp)
+      fo.close()
+      #}
+    #}
+
 
   
-  # END
+  #}  END OF FRICTION FORCES
+  ##############################################################################
+  
   return Accel
+#}
+#-------------------------------------------------------------------------

@@ -1,4 +1,4 @@
-VERSION_NAME = 'SAPCOR_v04f'
+VERSION_NAME = 'SAPCOR_v04i'
 
 # MODULE NAME - MISC
 MODULE_NAME_THIS_MISC = VERSION_NAME+'_Misc'
@@ -9,13 +9,13 @@ import glob
 from pylab import figure,plot,axis,savefig,clf
 
 # -------------------------------------------------------------------
-# MODULE NAMES TO BE IMPORTED
+#{ MODULE NAMES TO BE IMPORTED
 MODULE_NAMES_MISC = []
 MODULE_NAMES_MISC.append('Input')
-# -------------------------------------------------------------------
+#} -------------------------------------------------------------------
 
 # -------------------------------------------------------------------
-# Import Modules
+#{ Import Modules
 for Module_Name in MODULE_NAMES_MISC:
   FileName = VERSION_NAME+'_'+Module_Name+'_Build*.py'
   FList = glob.glob(FileName)
@@ -23,7 +23,7 @@ for Module_Name in MODULE_NAMES_MISC:
   FList.sort()
   FileName = FList[-1][0:-3]
   exec('from '+FileName+' import *')
-# -------------------------------------------------------------------
+#} -------------------------------------------------------------------
 
 
 
@@ -34,7 +34,10 @@ from math import sin,cos,pi,exp
 
 
 # ------------------------------------------------------------------------
-#  GLOBAL PARAMETERS
+#{  GLOBAL PARAMETERS
+
+# Output Dir
+FO_DIR = ''
  
 # Incresing number of CoreShape figures
 NPost_CoreShape = 0
@@ -51,21 +54,27 @@ OP_Solution_TimePointer = 0.
 # Block output time pointer
 OP_Block_TimePointer = 0.
 
-# ------------------------------------------------------------------------
+#} ------------------------------------------------------------------------
 
 
 
 #-------------------------------------------------------------------------
-
-def ERROR (msg,code=-1):
+def ERROR (msg,code=-1): #{
   Verbose(msg)
   sys.exit(code)
 
-#-------------------------------------------------------------------------
-
-def Verbose (Msg='',NewLine=True):
+#}-------------------------------------------------------------------------
+def VerboseInit (OUTPUT_DIR): #{
+  global FO_DIR
+  FO_DIR=OUTPUT_DIR
+  return
+ 
+#}-------------------------------------------------------------------------
+def Verbose (Msg='',NewLine=True): #{
   
-  FN_VERBOSE = FN_OUT+'.log'
+#(v04f)  FN_VERBOSE = FN_OUT+'.log'
+  global FO_DIR
+  FN_VERBOSE = FO_DIR+'/'+FN_OUT+'.log'
 
   if Msg=='//INIT//':
     fp=file(FN_VERBOSE,'w',0)
@@ -82,7 +91,7 @@ def Verbose (Msg='',NewLine=True):
   
   return
 
-#-------------------------------------------------------------------------
+#}-------------------------------------------------------------------------
 
 
 
@@ -90,8 +99,7 @@ def Verbose (Msg='',NewLine=True):
 #=========================================================================
 #      POST - CORE SHAPE
 #=========================================================================
-
-def Post_CoreShape (t,Solution,Core,FO_DIR,VERBOSE=''):
+def Post_CoreShape (t,Solution,Core,FO_DIR,VERBOSE=''): #{
 
   global NPost_CoreShape
   global OP_CoreShape_TimePointer
@@ -195,13 +203,13 @@ def Post_CoreShape (t,Solution,Core,FO_DIR,VERBOSE=''):
     
     
   return
+#}========================================================================
 
 
 # ===========================================================================
-
-
 # Get Initial Core Shape and Axis Info
-def Post_CoreShapeInit (Core,VERBOSE=''):
+# ===========================================================================
+def Post_CoreShapeInit (Core,VERBOSE=''): #{
 
   figure(100,(10,10))
   clf()
@@ -212,7 +220,7 @@ def Post_CoreShapeInit (Core,VERBOSE=''):
     Coords = GetBlockCoords(Core,0,1,U,W,R)
     LU = [Coords[2][0],Coords[2][1]]
     LD = [Coords[2][0],Coords[2][1]-BlockTypes['CSB']['h']]
-    Coords = GetBlockCoords(Core,2,1,U,W,R)
+    Coords = GetBlockCoords(Core,Core['M'],1,U,W,R)
     RU = [Coords[4][0],Coords[4][1]]
     RD = [Coords[4][0],Coords[4][1]-BlockTypes['CSB']['h']]
     
@@ -258,11 +266,12 @@ def Post_CoreShapeInit (Core,VERBOSE=''):
   
   return
 
+#}===========================================================================
+
+
 
 # ===========================================================================
-
-
-def OLD_Post_CoreShape_FnTimeFormat (Increment,t):
+def OLD_Post_CoreShape_FnTimeFormat (Increment,t): #{
 
   # ----------------------------------------------------------------------
   # Time Format in File Name  
@@ -298,7 +307,7 @@ def OLD_Post_CoreShape_FnTimeFormat (Increment,t):
   return FnTimeFormat
 
 #      END OF POST - CORE SHAPE
-#=========================================================================
+#}========================================================================
 
 
 
@@ -307,8 +316,7 @@ def OLD_Post_CoreShape_FnTimeFormat (Increment,t):
 #=========================================================================
 #      POST - SOLUTION AT LAST OF SECTION
 #=========================================================================
-
-def Post_Solution (t,Solution,Accel,Core,FO_DIR,VERBOSE=''):
+def Post_Solution (t,Solution,Accel,Core,FO_DIR,VERBOSE=''): #{
 
   global NPost_Solution
   global OP_Solution_TimePointer
@@ -365,16 +373,14 @@ def Post_Solution (t,Solution,Accel,Core,FO_DIR,VERBOSE=''):
   return
 
 #      END OF POST - SOLUTION
-#=========================================================================
+#}========================================================================
 
 
 
 #=========================================================================
 #      POST - DISP,ACCEL BY BLOCK
 #=========================================================================
-
-
-def Post_Block (t,Solution,Accel,Core,FO_DIR,VERBOSE=''):
+def Post_Block (t,Solution,Accel,Core,FO_DIR,VERBOSE=''): #{
 
   global OP_Block_TimePointer
   
@@ -441,14 +447,13 @@ def Post_Block (t,Solution,Accel,Core,FO_DIR,VERBOSE=''):
   return
 
 #      END OF POST - DISP,ACCEL BY BLOCK
+#}========================================================================
+
+
+
+
 #=========================================================================
-
-
-
-
-
-#=========================================================================
-#      INITIALIZE
+#{        INITIALIZE
 #=========================================================================
 
 #-------------------------------------------------------------------------
@@ -462,8 +467,7 @@ def Post_Block (t,Solution,Accel,Core,FO_DIR,VERBOSE=''):
 # Result: Make Core['Index']
 #         Make Core['Flag_CSB']
 #         Make Core['Array']
-
-def MakeIndex_RearrangeArray (Core,CoreArray,VERBOSE=''):
+def MakeIndex_RearrangeArray (Core,CoreArray,VERBOSE=''): #{
   
   CoreArray2={}
   Index=[]
@@ -493,7 +497,7 @@ def MakeIndex_RearrangeArray (Core,CoreArray,VERBOSE=''):
   Core['Index']=Index
   Core['Array']=CoreArray2
 
-# END OF Index and Rearrange Array
+#} END OF Index and Rearrange Array
 #-------------------------------------------------------------------------
 
 
@@ -503,8 +507,7 @@ def MakeIndex_RearrangeArray (Core,CoreArray,VERBOSE=''):
 # Connectivity
 # Tested: 140303_Connectivity Test #1.ppt
 # Result: Make Core['Connectivity']
-
-def MakeConnectivity (Core,VERBOSE=''):
+def MakeConnectivity (Core,VERBOSE=''): #{
   
   # Var Spaces
   BlockTypes = Core['BlockTypes']
@@ -627,7 +630,7 @@ def MakeConnectivity (Core,VERBOSE=''):
 
   Core['Connectivity']=Connectivity
 
-# END OF Connectivity
+#} END OF Connectivity
 #-------------------------------------------------------------------------
 
 
@@ -638,8 +641,7 @@ def MakeConnectivity (Core,VERBOSE=''):
 # Get Initial Block Center Coords
 # Origin at LD corner of first lowest left restratin
 # Results: Core['InitialBlockCenters'][K][L]=[x,z]
-
-def GetInitBlockCenters (Core,VERBOSE=''):
+def GetInitBlockCenters (Core,VERBOSE=''): #{
   
   # Var Space
   BlockTypes=Core['BlockTypes']
@@ -710,19 +712,17 @@ def GetInitBlockCenters (Core,VERBOSE=''):
       for L in range(1,len(Array[K])+1):
         print '(%d,%d)='%(K,L),BlockCenters[K][L]
 
-# END OF GetInitBlockCenters
+#} END OF GetInitBlockCenters
 #-------------------------------------------------------------------------
 
-
-
-
-
+#} END OF INITIALIZE
+#=========================================================================
 
 
 
 
 #=========================================================================
-#      STATUS
+#{        STATUS
 #=========================================================================
 
 
@@ -1033,11 +1033,13 @@ def PutValToVect (Core,Vect,K,L,Values):
 #-------------------------------------------------------------------------
 
 
+#} END OF STATUS
+#=========================================================================
 
 
 
 #=========================================================================
-#      TEST
+#{      TEST
 #=========================================================================
 
 
@@ -1068,3 +1070,6 @@ if __name__=='__main__':
   K,L = 1,1
   GetBlockCoords(Core,K,L,U,W,R,VERBOSE='/Coords/')
   print 'TEST COMPLETED'
+  
+#} END OF TEST
+#=========================================================================

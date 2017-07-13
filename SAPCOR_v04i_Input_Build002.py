@@ -1,5 +1,55 @@
-VERSION_NAME = 'SAPCOR_v04f'
+VERSION_NAME = 'SAPCOR_v04i'
 
+###############################################################################
+#
+#                            SYSYTEM INTILIZATION
+#
+#                         !!!! DO NOT MODIFY THIS !!!!
+#                         !!!! DO NOT MODIFY THIS !!!!
+#                         !!!! DO NOT MODIFY THIS !!!!
+#{
+
+def ERROR (ERR_MSG_LIST,Align='Left'):
+#{
+  Msg  = '\n'*3+'='*79+'\n'
+  Msg += '='+' '*34+'E R R O R'+' '*34+'=\n'
+  Msg += '='*79+'\n'
+  Msg += '='+' '*77+'=\n'
+
+  if Align == 'Left':
+    # LEFT-ALIGNED FORMAT
+    for ERR_MSG in ERR_MSG_LIST:
+      Length = len(ERR_MSG)
+      NBlankR = 75 - Length
+      Msg += '='+'  '+ERR_MSG+' '*NBlankR+'=\n'
+  else:
+    # CENTERED FORMAT
+    for ERR_MSG in ERR_MSG_LIST:
+      Length = len(ERR_MSG)
+      NBlankL = NBlankR = 38 - Length/2
+      if Length%2 == 0: NBlankR += 1
+      Msg += '='+' '*NBlankL+ERR_MSG+' '*NBlankR+'=\n'
+
+  Msg += '='+' '*77+'=\n'
+  Msg += '='*79+'\n'
+  Msg += '\n'*3
+  print Msg  
+  raise
+  return
+#}
+
+#{ CHECK VERSION_NAME  
+import os
+MyFileName = os.path.basename(__file__)
+print MyFileName[:len(VERSION_NAME)]
+if MyFileName[:len(VERSION_NAME)] != VERSION_NAME:
+  MsgList  = ["VERSION_NAME doesn't match with the File Name."]
+  MsgList += ["VERSION_NAME: %s"%VERSION_NAME]
+  MsgList += ["File Name: %s"%MyFileName]
+  ERROR(MsgList)
+#}
+
+#}#############################################################################
 
 
 
@@ -79,8 +129,8 @@ VERBOSE += '/Init/'
 
 ###############################################################################
 #{ USER INPUT
-
-#{
+#.............................................................................
+#{ Fundamental Material Properties
 M = 0.00628
 C = 1.77
 K = 2.5e4
@@ -101,23 +151,21 @@ mu_s = 0.2
 mu_k = 0.2
 d_mu = 100
 xi_F_cr = 0.01
-#}
-
-# Gap #{
+#}............................................................................
+#{ Gap
 Delta = 0.1     # General Block Gap 
 DeltaTop = 0.05 # Top Block Gap
 DeltaD = 0.025    # Dowel Gap
 #DeltaL = 0.05   # Dowel Gap Left
 #DeltaR = 0.05   # Dowel Gap Right
-#}
-
+#}............................................................................
 #{ Total time for analysis
 # Real analysis time >= TotalTime
 TotalTime = 0.0005
 TotalTime = 1.001
 #TotalTime = 2.001
-#}
-
+TimeIncr = 0.001
+#}............................................................................
 #{ Toggle Forces On/Off for Test
 ApplyForces={}
 ApplyForces['Block_H']=True
@@ -125,8 +173,7 @@ ApplyForces['Block_D']=True
 ApplyForces['Block_DF']=True
 ApplyForces['Block_V']=True
 ApplyForces['Block_VF']=True
-#}
-
+#}............................................................................
 #{ Block Types
 #
 # 'Fixed':'None' if the block is not fixed
@@ -146,8 +193,7 @@ BlockTypes['C']={'a':a,'b':b,'h':h,  'd':d,'M':M,'I':I,'Kh':Kh,'Ch':Ch,'Kv':Kv,'
 BlockTypes['D']={'a':a,'b':b,'h':h*3,'d':d,'M':M,'I':I,'Kh':Kh,'Ch':Ch,'Kv':Kv,'Cv':Cv,'Kd':Kd,'Cd':Cd,'mu_s':mu_s,'mu_k':mu_k,'d_mu':d_mu,'xi_F_cr':xi_F_cr,'Fixed':'None'}
 BlockTypes['E']={'a':a,'b':b,'h':h*4,'d':d,'M':M,'I':I,'Kh':Kh,'Ch':Ch,'Kv':Kv,'Cv':Cv,'Kd':Kd,'Cd':Cd,'mu_s':mu_s,'mu_k':mu_k,'d_mu':d_mu,'xi_F_cr':xi_F_cr,'Fixed':'None'}
 BlockTypes['CSB']={'a':0,'b':0,'h':h/2,'d':d,'M':M,'I':I,'Kh':Kh,'Ch':Ch,'Kv':Kv,'Cv':Cv,'Kd':Kd,'Cd':Cd,'mu_s':mu_s,'mu_k':mu_k,'d_mu':d_mu,'xi_F_cr':xi_F_cr,'Fixed':'FixedToBase'}
-#}
-
+#}............................................................................
 #{ Material Properties
 MatProp={}
 MatProp['Block']={}
@@ -156,8 +202,7 @@ MatProp['Block']['C']=C
 MatProp['Restraint']={}
 MatProp['Restraint']['K']=K
 MatProp['Restraint']['C']=C
-#}
-
+#}............................................................................
 #{ Core Array
 CoreArray = []
 CoreArray.append('CSB')
@@ -165,8 +210,7 @@ CoreArray.append('W')
 #CoreArray.append('BBBBBBBBBBBBB')
 CoreArray.append('BB')
 CoreArray.append('W')
-#}
-
+#}............................................................................
 #{ Initial Conditions
 # InitialConditions.append([K,L, U,DU, W,DW, R,DR])
 InitialConditions=[]
@@ -175,16 +219,20 @@ InitialConditions=[]
 #                          K  L  U       DU  W       DW  R       DR 
 InitialConditions.append([ 1, 1, 1.2677, 0., 0.5760, 0., 0.0873, 0. ])
 InitialConditions.append([ 1, 2, 1.2677, 0., 1.7280, 0., -0.0873, 0. ])
-#}
-
+#}............................................................................
 #{ Body Force (acceleration)
 BodyForce = {}
 # Unit : cm/s2
 BodyForce[1] = 0.
 BodyForce[3] = -981.0
 BodyForce[5] = 0.
-#}
-
+#}............................................................................
+#{ Disp Sensor Damping in X-Dir
+#
+# DisSensorDamping = [k1,k2]  ->   C=k1*ABS(U)+K2
+DispSensorDamping = [0.08,0.12]
+#
+#}............................................................................
 #{ Loads on support frame (F_SupportFrame()) (acceleration)
 Load = {}; Load[1]={}; Load[3]={}; Load[5]={}
 # Load[i] : i is axis direction
@@ -192,28 +240,33 @@ Load = {}; Load[1]={}; Load[3]={}; Load[5]={}
 #   i=3 : Coord=Z, Disp=W
 #   i=5 : Coord=Y, Rot=R
 #   i=2,4,6 are not used in 2D
-# Load[i]['Type'] = 'None', 'Accel', 'Disp', or 'Data'
+# Load[i]['Type'] = 'None', 'Accel', 'Disp'
 # if Load[i]['Type'] != 'None
-#   Load[i]['FnType'] = 'Sin', 'Cos', or 'Data
+#   Load[i]['FnType'] = 'Sin', 'Cos', or 'Data'
 #   if Load[i]['FnType'] == 'Sin' or 'Cos'
-#     Load[i]['Amp'] : Max amplitude (cm/s2 or cm)
+#     Load[i]['Amp'] : Max amplitude (L/T2 or L)
 #     Load[i]['Freq'] : Frequency (fixed during calculation) (Hz)
+#     Load[i]['Phase'] : Phase shift (rad)
 #   if Load[i]['FnType'] == 'Data'
 #     Load[i]['FileName'] = '<<Data File Name>>'
 #     ! Data File Format
 #     ! 1  : Dummy Header Line (eg. t, Accel)
-#     ! 2~ : t, Acceleration (cm/s2) or Displacement (cm)
-Load[1]['Type']='None'
-Load[1]['FnType']='Cos'
-Load[1]['Amp']=500.
-Load[1]['Freq']=10.
+#     ! 2~ : t, Acceleration (L/T2) or Displacement (L)
+
+
+Load[1]['Type']  = 'Accel'
+Load[1]['FnType']= 'Sin'
+Load[1]['Amp']   = 500
+Load[1]['Freq']  = 3.5
+Load[1]['Phase'] = 0.0
 Load[3]['Type']='None'
 Load[5]['Type']='None'
-#}
 
+
+#}............................................................................
 #{ OUTPUT CONTROL
 
-# Time Frequency for CoreShape Output
+# Time Frequency for CoreShape Output (0: Skip)
 OP_CoreShape_TimeFreq = 0.02
 
 # Scale Factor for Deformation
@@ -223,20 +276,20 @@ OP_CoreShape_Scale = 1.
 OP_CoreShape_MarginX = 10
 OP_CoreShape_MarginY = 10
 
-# Time Frequency for Solution Output
+# Time Frequency for Solution Output (0:Skip)
 # What is "Solution" : Core State (All Block States) at a Specified Time Point
-OP_Solution_TimeFreq = 0.02
+OP_Solution_TimeFreq = 0
+#OP_Solution_TimeFreq = 0.02
 
-# Block Data Sampling Frequency
+# Block Data Sampling Frequency (0:Skip)
 # What is "Block Data" : All time response from beginning of a block
+#OP_Block_TimeFreq = 0
 OP_Block_TimeFreq = 0.001
 
-#}
-
+#}............................................................................
 # Filename for Verbose
 FN_Verbose = 'Verbose.txt'
-
-
+#.............................................................................
 # END OF USER INPUT
 #}##############################################################################
 

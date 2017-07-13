@@ -1,4 +1,4 @@
-VERSION_NAME = 'SAPCOR_v04f'
+VERSION_NAME = 'SAPCOR_v04i'
 
 # MODULE NAME
 MODULE_NAME_THIS__FORCE = VERSION_NAME+'_Force'
@@ -54,7 +54,7 @@ RunTime_VectorField_Prev = 0.
 #
 #
 #
-def VectorField(w, t, Core, VERBOSE=''):
+def VectorField(w, t, Core, VERBOSE='', POST=False, FO_DIR=''): #{
   """
     Defines the differential equations for the coupled spring-mass system.
 
@@ -104,7 +104,8 @@ def VectorField(w, t, Core, VERBOSE=''):
   # ------------------------------------------------------------------------
   # COPY STATE OF BASE TO "FIXED TO BASE" BLOCKS
   #
-  StateOfBase=GetSolFromVect(Core,w,0,0)
+  #(v0f) StateOfBase=GetSolFromVect(Core,w,0,0)
+  StateOfBase = w[0:6]
   for (K,L) in Core['KLFixedToBase']:
     PutValToVect(Core,w,K,L,StateOfBase)
 
@@ -218,17 +219,17 @@ def VectorField(w, t, Core, VERBOSE=''):
           
           # HORIZONTAL
           if Core['ApplyForces']['Block_H']==True:
-            Accel = Force_Block_H(w,t,Core,K,L,Accel)
+            Accel = Force_Block_H(w,t,Core,K,L,Accel,POST,FO_DIR)
           
         
           # VERTICAL & FRICTION
-#          if Core['ApplyForces']['Block_V']==True:
-#            Accel = Force_Block_V(w,t,Core,K,L,Accel) 
-          Accel = Force_Block_V_F(w,t,Core,K,L,Accel) 
+          if Core['ApplyForces']['Block_V']==True:
+            Accel = Force_Block_V_F(w,t,Core,K,L,Accel,POST,FO_DIR) 
+#          Accel = Force_Block_V_F(w,t,Core,K,L,Accel) 
           
-          # DOWEL
+          # DOWEL & FRICTION
           if Core['ApplyForces']['Block_D']==True:
-            Accel = Force_Block_D_F(w,t,Core,K,L,Accel) 
+            Accel = Force_Block_D_F(w,t,Core,K,L,Accel,POST,FO_DIR) 
 
 
       # DO FOLLOWING IN SEPARATE FORCE FUNCTIONS        
@@ -278,12 +279,29 @@ def VectorField(w, t, Core, VERBOSE=''):
     # Cancel->Body Force (1:DDU, 2:DDV, 3:DDW, 4:DDQ, 5:DDR, 6:DDS)
     # Body Force (0:DU 1:DDU, 2:DW, 3:DDW, 4:DR, 5:DDR)
     # If BASE -> No Body Force
-    if [K,L]!=[0,0] and [K,L]!=[1,0] and K!=0 and K!=L+1 and Fixed=='None':
-      # DO SOMETHING HERE
-      Accel[IndexW+1] += BodyForce[1] # DDU
-      Accel[IndexW+3] += BodyForce[3] # DDW
-      Accel[IndexW+5] += BodyForce[5] # DDR
-      pass
+
+#(v04f)    if [K,L]!=[0,0] and [K,L]!=[1,0] and K!=0 and K!=L+1 and Fixed=='None':
+#(v04f)      # DO SOMETHING HERE
+#(v04f)      Accel[IndexW+1] += BodyForce[1] # DDU
+#(v04f)      Accel[IndexW+3] += BodyForce[3] # DDW
+#(v04f)      Accel[IndexW+5] += BodyForce[5] # DDR
+#(v04f)      pass
+    
+    if [K,L]!=[0,0] and [K,L]!=[1,0] and K!=0 and K!=L+1:
+
+      if Fixed=='None':
+        Accel[IndexW+1] += BodyForce[1] # DDU
+        Accel[IndexW+3] += BodyForce[3] # DDW
+        Accel[IndexW+5] += BodyForce[5] # DDR
+      elif Fixed=='FixedU':
+        Accel[IndexW+3] += BodyForce[3] # DDW
+        Accel[IndexW+5] += BodyForce[5] # DDR
+      elif Fixed=='FixedUR':
+        Accel[IndexW+3] += BodyForce[3] # DDW
+      pass # EOIF
+
+    pass # EOIF
+
     #     
     # END OF BODY FORCE
     # ------------------------------------------------------------------------
@@ -377,14 +395,13 @@ def VectorField(w, t, Core, VERBOSE=''):
 #
 #
 # END OF VECTOR FIELD
+#}=========================================================================
+
+
+
+
 #=========================================================================
-
-
-
-
-
-
-def PerfResult_VectorField():
+def PerfResult_VectorField(): #{
   """
 Return: (a,b,c,d,e)
     a: NRun_VectorField    of this section only
@@ -407,40 +424,13 @@ Return: (a,b,c,d,e)
   NRun_VectorField_Prev    = NRun_VectorField
   RunTime_VectorField_Prev = RunTime_VectorField
   return a,b,c,d,e,f 
+#}=========================================================================
 
 
-
-
-
-#=========================================================================
-# FIXED TO BASE
-#=========================================================================
-#def CopyBaseToFixedToBase (w,t,Core):
-#  StateOfBase=GetSolFromVect(Core,w,0,0)
-#  for (K,L) in Core['KLFixedToBase']:
-#    PutValToVect(Core,w,K,L,StateOfBase)
-#  return
-
-#def AccelModForFixedBlocks (w,t,Core):
-#  global Accel
-# 
-#  # Fixed
-#  for (K,L) in Core['KLFixed']:
-#    (U,DU,W,DW,R,DR) = GetSolFromVect(Core,w,K,L)
-#    Accel_Bl = [DU,0.,DW,0.,DR,0.]
-#    PutValToVect(Core,Accel,K,L,Accel_Bl)
-#    
-#  # FixedToBase
-#  for (K,L) in Core['KLFixedToBase']:
-#    Accel_Bl = [0.,0.,0.,0.,0.,0.]
-#    PutValToVect(Core,Accel,K,L,Accel_Bl)
-#    
-#  return  
   
   
 #=========================================================================
-# BLOCK FORCES
-#=========================================================================
+#{ BLOCK FORCES
 
 
 
@@ -500,12 +490,7 @@ def OLD_Force_Block (w,t,Core,K,L,Accel):
 
 #=========================================================================
 # END OF BLOCK FORCES
-#=========================================================================
-
-
-
-
-
+#}=========================================================================
 
 
 
@@ -516,7 +501,7 @@ def OLD_Force_Block (w,t,Core,K,L,Accel):
 # Extract Acceleration from State Vector
 #=========================================================================
 
-def OLD_ExtractAccelFromXV (Solution,t,Core,VERBOSE=''):
+def OLD_ExtractAccelFromXV (Solution,t,Core,VERBOSE=''): #{
   Accel = []
 #  for sol,t_i in Solution,t:
   for i in range(len(t)):
@@ -536,9 +521,9 @@ def OLD_ExtractAccelFromXV (Solution,t,Core,VERBOSE=''):
     Accel.append(f[1::2])
 #    Accel=numpy.array(Accel)
   return Accel
+#}
 
-
-def ExtractAccelFromXV (Solution,t,Core,VERBOSE=''):
+def ExtractAccelFromXV (Solution,t,Core,VERBOSE=''): #{
 
   start = time.time()
   
@@ -574,4 +559,6 @@ def ExtractAccelFromXV (Solution,t,Core,VERBOSE=''):
   start = end
 
   return Accel
+#}
 
+#=========================================================================

@@ -1,4 +1,4 @@
-VERSION_NAME = 'SAPCOR_v04g'
+VERSION_NAME = 'SAPCOR_v04i'
 
 # MODULE NAME
 MODULE_NAME_THIS__FORCE_BLOCK_V_F = VERSION_NAME+'_Force_Block_V_F'
@@ -33,6 +33,7 @@ from numpy import array,zeros,hstack
 #}#############################################################################
 
 
+
 #-------------------------------------------------------------------------
 def Force_Block_V_F (w,t,Core,K,L,Accel,POST=False,FO_DIR=FO_DIR):
 #{
@@ -47,12 +48,15 @@ def Force_Block_V_F (w,t,Core,K,L,Accel,POST=False,FO_DIR=FO_DIR):
         Core : Var space
   """
   #}
+  
+  global NRun
 
   #{ VERBOSE
   if '/Force/' in VERBOSE:
     Verbose('<FORCE_BLOCK_V_F>')
     Verbose('time=%e, (K,L)=(%d,%d)'%(t,K,L))
   #}  
+
 
 #=========================================================================
 #{ INITIALIZATION
@@ -241,13 +245,41 @@ def Force_Block_V_F (w,t,Core,K,L,Accel,POST=False,FO_DIR=FO_DIR):
   
   #{ POST
   if POST==True:
+    	
+    # FILENAME
+    Filename = FO_DIR+'/(%2d,%2d)_V.csv'%(K,L)
+
+    #{ HEADER
+    try: fo = open(Filename,'r')
+    except: # File doesn't exist -> This is the first time. Make header.
+      temp  = 't,'
+      temp += 'GamL,F_VLk,dGamL,F_VLc,F_VL,M_VL,M_VLm,'
+      temp += 'GamR,F_VRk,dGamR,F_VRc,F_VR,M_VR,M_VRm\n'
+      fo = open(Filename,'w')
+      fo.write(temp)
+      fo.close()
+    #}
+    
+    #{ F_VLk, F_VLc, F_VRk, F_VRc
+    F_VLk = F_VLc = 0.
+    F_VRk = F_VRc = 0.
+    if Gamma_L>0.:
+      F_VLk = Kv * Gamma_L
+      F_VLc = Cv * DGamma_L
+    if Gamma_R>0.:
+      F_VRk = Kv * Gamma_R
+      F_VRc = Cv * DGamma_R
+    #}
+ 		
+ 		#{ WRITE
     temp  = '%e, '%t
-    temp += '%e, %e, %e, %e, %e, '%(Gamma_L,DGamma_L,F_VL,M_VL,M_VLm)
-    temp += '%e, %e, %e, %e, %e  '%(Gamma_R,DGamma_R,F_VR,M_VR,M_VRm)
-    temp += '\n'
-    fo = open(FO_DIR+'/(%2d,%2d)_V.csv'%(K,L),'a')
+    #        1   2   3   4   5   6   7    : 1        2      3         4      5     6     7
+    temp += '%e, %e, %e, %e, %e, %e, %e, '%(Gamma_L, F_VLk, DGamma_L, F_VLc, F_VL, M_VL, M_VLm)
+    temp += '%e, %e, %e, %e, %e, %e, %e\n'%(Gamma_R, F_VRk, DGamma_R, F_VRc, F_VR, M_VR, M_VRm)
+    fo = open(Filename,'a')
     fo.write(temp)
     fo.close()
+    #}
   #}
 
 #                                                                            #
@@ -397,13 +429,29 @@ def Force_Block_V_F (w,t,Core,K,L,Accel,POST=False,FO_DIR=FO_DIR):
 
     #{ POST
     if POST==True:
+
+      # FILENAME
+      Filename = FO_DIR+'/(%2d,%2d)_VF.csv'%(K,L)
+
+      #{ HEADER
+      try: fo = open(Filename,'r')
+      except: # File doesn't exist -> This is the first time. Make header.
+        temp  = 't,'
+        temp += 'xi_L,F_FL,M_FL,M_FLm,'
+        temp += 'xi_R,F_FR,M_FR,M_FRm\n'
+        fo = open(Filename,'w')
+        fo.write(temp)
+        fo.close()
+      #}
+
+      #{ WRITE
       temp  = '%e, '%t
       temp += '%e, %e, %e, %e, '%( xi_L, F_FL, M_FL, M_FLm )
-      temp += '%e, %e, %e, %e  '%( xi_R, F_FR, M_FR, M_FRm )
-      temp += '\n'
-      fo = open(FO_DIR+'/(%2d,%2d)_VF.csv'%(K,L),'a')
+      temp += '%e, %e, %e, %e\n'%( xi_R, F_FR, M_FR, M_FRm )
+      fo = open(Filename,'a')
       fo.write(temp)
       fo.close()
+      #}
     #}
 
      

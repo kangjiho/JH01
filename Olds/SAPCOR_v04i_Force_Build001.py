@@ -1,4 +1,4 @@
-VERSION_NAME = 'SAPCOR_v04f'
+VERSION_NAME = 'SAPCOR_v04i'
 
 # MODULE NAME
 MODULE_NAME_THIS__FORCE = VERSION_NAME+'_Force'
@@ -7,7 +7,7 @@ MODULE_NAME_THIS__FORCE = VERSION_NAME+'_Force'
 import glob
 
 # -------------------------------------------------------------------
-# MODULE NAMES TO BE IMPORTED
+#{ MODULE NAMES TO BE IMPORTED
 MODULE_NAMES_FORCE = []
 MODULE_NAMES_FORCE.append('Misc')
 MODULE_NAMES_FORCE.append('Input')
@@ -15,10 +15,11 @@ MODULE_NAMES_FORCE.append('Force_Block_D_F')
 MODULE_NAMES_FORCE.append('Force_Block_H')
 #MODULE_NAMES_FORCE.append('Force_Block_V')
 MODULE_NAMES_FORCE.append('Force_Block_V_F')
+#} END OF MODULE NAMES TO BE IMPORTED
 # -------------------------------------------------------------------
 
 # -------------------------------------------------------------------
-# Import Modules
+#{ IMPORT MODULES
 for Module_Name in MODULE_NAMES_FORCE:
   FileName = VERSION_NAME+'_'+Module_Name+'_Build*.py'
   FList = glob.glob(FileName)
@@ -26,10 +27,8 @@ for Module_Name in MODULE_NAMES_FORCE:
   FList.sort()
   FileName = FList[-1][0:-3]
   exec('from '+FileName+' import *')
+#} END OF IMPORT MODULES
 # -------------------------------------------------------------------
-
-
-
 
 
 
@@ -51,10 +50,9 @@ RunTime_VectorField_Prev = 0.
 
 #=========================================================================
 # VECTOR FIELD
-#
-#
-#
-def VectorField(w, t, Core, VERBOSE=''):
+def VectorField(w, t, Core, VERBOSE='', POST=False, FO_DIR=''): #{
+  # ------------------------------------------------------------------------
+  #{ COMMENT
   """
     Defines the differential equations for the coupled spring-mass system.
 
@@ -67,22 +65,30 @@ def VectorField(w, t, Core, VERBOSE=''):
     Return:
         [DU,DDU,DW,DDW,DR,DDR,...]
   """
+  #} END OF COMMENT
+  # ------------------------------------------------------------------------
 
-  # PERFORMANCE MEASUREMENT
+  # ------------------------------------------------------------------------
+  #{ VARS FOR PERFORMANCE MEASUREMENT
   # Globa Vars:
   #   NRun_VectorField : number of runs of VectorField()
   #   AvgRunTime_VectorField : Average Run Time of VectorField()
   global NRun_VectorField
   global RunTime_VectorField
   StartTime=time.time()
+  #} END OF VARS FOR PERFORMANCE MEASUREMENT
+  # ------------------------------------------------------------------------
 
-# VERBOSE    
+  # ------------------------------------------------------------------------
+  #{ VERBOSE    
   if '/Force/' in VERBOSE:
     Verbose('='*80)
     Verbose('<VectorField()>')
+  #} END OF VERBOSE
+  # ------------------------------------------------------------------------
 
-
-  # Var Space
+  # ------------------------------------------------------------------------
+  #{ VAR SPACE
 
 #  CoreIndex = Core['Index']
   LCoreReverseIndex = len(Core['ReverseIndex'])
@@ -99,25 +105,23 @@ def VectorField(w, t, Core, VERBOSE=''):
   # IndexW = IndexBlock*6
   IndexW = 0
 
-
+  #} END OF VAR SPACE
+  # ------------------------------------------------------------------------
   
   # ------------------------------------------------------------------------
-  # COPY STATE OF BASE TO "FIXED TO BASE" BLOCKS
+  #{ COPY STATE OF BASE TO "FIXED TO BASE" BLOCKS
   #
   #(v0f) StateOfBase=GetSolFromVect(Core,w,0,0)
   StateOfBase = w[0:6]
   for (K,L) in Core['KLFixedToBase']:
     PutValToVect(Core,w,K,L,StateOfBase)
-
-  
+  #} END OF COPY STATE OF BASE TO "FIXED TO BASE" BLOCKS
   # ------------------------------------------------------------------------
-  # MAIN LOOP FOR CORE
+
+  # ------------------------------------------------------------------------
+  #{ MAIN LOOP FOR CORE
   #
   for IndexBlock in xrange(LCoreReverseIndex):
-
-
-
-
   
     # Index on StateVector
     IndexW = IndexBlock*6    
@@ -132,29 +136,19 @@ def VectorField(w, t, Core, VERBOSE=''):
     else: # CSB or normal blocks
       Fixed = BlockTypes[BTN]['Fixed']
 
-
-
-
-
-# VERBOSE    
+    #{ VERBOSE
     if '/Force/' in VERBOSE:
       Verbose('IndexBlock,IndexW=%d,%d  K,L=%d,%d'%(IndexBlock,IndexW,K,L))
-
-
-
-    
-    
+    #} END OF VERBOSE
     
     # ------------------------------------------------------------------------
-    # Force on Base
+    #{ FORCE ON BASE
     if [K,L]==[0,0]: Force_Base(w,t,Core)
-
-
-
-
+    #} END OF FORCE ON BASE
+    # ------------------------------------------------------------------------
 
     # ------------------------------------------------------------------------
-    # FORCE ON CSB
+    #{ FORCE ON CSB
     #
     elif [K,L]==[1,0]: Force_CSB(w,t,Core)
 
@@ -180,26 +174,17 @@ def VectorField(w, t, Core, VERBOSE=''):
       # INPUT ERROR
 #      else: ERROR('Invalid CSB Fix Setting')
     #
-    # END OF FORCE ON CSB
+    #} END OF FORCE ON CSB
     # ------------------------------------------------------------------------
 
-
     # ------------------------------------------------------------------------
-    # INVAILD K,L
+    #{ INVAILD K,L
     elif K>1 and L==0: ERROR('Invalid Core Index')
-    # END OF INVAILD K,L
+    #} END OF INVAILD K,L
     # ------------------------------------------------------------------------
 
-
-
-    
-
-
-
-
-
     # ------------------------------------------------------------------------
-    # FORCE ON NORMAL BLOCKS
+    #{ FORCE ON NORMAL BLOCKS
     #
     else: # Blocks
 
@@ -219,17 +204,17 @@ def VectorField(w, t, Core, VERBOSE=''):
           
           # HORIZONTAL
           if Core['ApplyForces']['Block_H']==True:
-            Accel = Force_Block_H(w,t,Core,K,L,Accel)
+            Accel = Force_Block_H(w,t,Core,K,L,Accel,POST,FO_DIR)
           
         
           # VERTICAL & FRICTION
           if Core['ApplyForces']['Block_V']==True:
-            Accel = Force_Block_V_F(w,t,Core,K,L,Accel) 
+            Accel = Force_Block_V_F(w,t,Core,K,L,Accel,POST,FO_DIR) 
 #          Accel = Force_Block_V_F(w,t,Core,K,L,Accel) 
           
           # DOWEL & FRICTION
           if Core['ApplyForces']['Block_D']==True:
-            Accel = Force_Block_D_F(w,t,Core,K,L,Accel) 
+            Accel = Force_Block_D_F(w,t,Core,K,L,Accel,POST,FO_DIR) 
 
 
       # DO FOLLOWING IN SEPARATE FORCE FUNCTIONS        
@@ -265,31 +250,33 @@ def VectorField(w, t, Core, VERBOSE=''):
       # INPUT ERROR
 #      else: ERROR('Invalid CSB Fix Setting')
     #
-    # END OF FORCE ON BLOCKS
+    #} END OF FORCE ON BLOCKS
     # ------------------------------------------------------------------------
 
-        
-
-
-
-
     # ------------------------------------------------------------------------
-    # BODY FORCE
+    #{ BODY FORCE
     #
     # Cancel->Body Force (1:DDU, 2:DDV, 3:DDW, 4:DDQ, 5:DDR, 6:DDS)
     # Body Force (0:DU 1:DDU, 2:DW, 3:DDW, 4:DR, 5:DDR)
-    # If BASE -> No Body Force
+    #
+    # If BASE([0,0]) -> NO BODY FORCE
+    # If CSB ([1,0]) -> NO BODY FORCE
+    # If LEFT RESTRAINT ([0,:]) -> NO BODY FORCE
+    # If RIGHT RESTRAINT([M+1,:]) -> NO BODY FORCE
 
+#{ OLD VERSION
 #(v04f)    if [K,L]!=[0,0] and [K,L]!=[1,0] and K!=0 and K!=L+1 and Fixed=='None':
 #(v04f)      # DO SOMETHING HERE
 #(v04f)      Accel[IndexW+1] += BodyForce[1] # DDU
 #(v04f)      Accel[IndexW+3] += BodyForce[3] # DDW
 #(v04f)      Accel[IndexW+5] += BodyForce[5] # DDR
 #(v04f)      pass
+#} END OF OLD VERSION
     
-    if [K,L]!=[0,0] and [K,L]!=[1,0] and K!=0 and K!=L+1:
+#(v04f BUG) if [K,L]!=[0,0] and [K,L]!=[1,0] and K!=0 and K!=L+1:
+    if [K,L]!=[0,0] and [K,L]!=[1,0] and K!=0 and K!=Core['M']+1: #{
 
-      if Fixed=='None':
+      if Fixed=='None': #{
         Accel[IndexW+1] += BodyForce[1] # DDU
         Accel[IndexW+3] += BodyForce[3] # DDW
         Accel[IndexW+5] += BodyForce[5] # DDR
@@ -298,20 +285,42 @@ def VectorField(w, t, Core, VERBOSE=''):
         Accel[IndexW+5] += BodyForce[5] # DDR
       elif Fixed=='FixedUR':
         Accel[IndexW+3] += BodyForce[3] # DDW
-      pass # EOIF
+      pass #} EOIF
+    pass #} EOIF
 
-    pass # EOIF
+    #} END OF BODY FORCE
+    # ------------------------------------------------------------------------
+
+    # ------------------------------------------------------------------------
+    #{ DISP SENSOR DAMPING
+    #
+    # If BASE([0,0]) -> NO  DISP SENSOR DAMPING
+    # If CSB ([1,0]) -> YES DISP SENSOR DAMPING
+    # If LEFT RESTRAINT ([ 0 ,:]) -> NO DISP SENSOR DAMPING
+    # If RIGHT RESTRAINT([M+1,:]) -> NO DISP SENSOR DAMPING
+
+    if [K,L]!=[0,0] and K!=0 and K!=Core['M']+1: #{
+      
+      # 1th Order Disp Damping Coefficient
+      # C = k1*ABS(U)+k2
+      C = DispSensorDamping[0]*abs(w[IndexW]) + DispSensorDamping[1]
+
+      if Fixed=='None': #{
+        Accel[IndexW+1] -= C*w[IndexW+1] # DDU
+      elif Fixed=='FixedU':
+        pass
+      elif Fixed=='FixedUR':
+        pass
+      pass #} EOIF
+      
+    pass #} EOIF
 
     #     
-    # END OF BODY FORCE
+    #} END OF SYSTEM DAMPING
     # ------------------------------------------------------------------------
-    
-
-
-
    
     # ------------------------------------------------------------------------
-    # ASSEMBLE FORCE
+    #{ ASSEMBLE FORCE
     #
     
     Accel[IndexW  ] = w[IndexW+1] # DU
@@ -357,21 +366,16 @@ def VectorField(w, t, Core, VERBOSE=''):
 #    f = hstack([f,Force])
 
     #    
-    # END OF ASSEMBLE FORCE
+    #} END OF ASSEMBLE FORCE
     # ------------------------------------------------------------------------
-
-
-
 
 #    IndexW += 6
   #
-  # END OF MAIN LOOP FOR CORE
+  #} END OF MAIN LOOP FOR CORE
   # ------------------------------------------------------------------------
 
-
-
-
-# TEST #
+  # ------------------------------------------------------------------------
+  #{ TEST
 #  if Core['TEST']!=Core['InitialBlockCenters']:
 #    print "Force-Loop2 Core['InitialBlockCenters']"
 #    for K in Core['InitialBlockCenters'].keys():
@@ -379,30 +383,26 @@ def VectorField(w, t, Core, VERBOSE=''):
 #      for L in Col.keys():
 #        print '(%d,%d)'%(K,L),'=',Col[L]
 #    raw_input('pause')
+  #} END OF TEST
+  # ------------------------------------------------------------------------
 
-  
-
-
-
-
-  # PERFORMANCE MEASUREMENT
+  # ------------------------------------------------------------------------
+  #{ PERFORMANCE MEASUREMENT
   RunTime_VectorField += time.time()-StartTime
   NRun_VectorField += 1
+  #} END OF PERFORMANCE MEASUREMENT
+  # ------------------------------------------------------------------------
 
   return Accel
-#
-#
-#
-#
-# END OF VECTOR FIELD
+
+#} END OF VECTOR FIELD
 #=========================================================================
 
 
 
 
-
-
-def PerfResult_VectorField():
+#=========================================================================
+def PerfResult_VectorField(): #{
   """
 Return: (a,b,c,d,e)
     a: NRun_VectorField    of this section only
@@ -425,40 +425,13 @@ Return: (a,b,c,d,e)
   NRun_VectorField_Prev    = NRun_VectorField
   RunTime_VectorField_Prev = RunTime_VectorField
   return a,b,c,d,e,f 
+#}=========================================================================
 
 
-
-
-
-#=========================================================================
-# FIXED TO BASE
-#=========================================================================
-#def CopyBaseToFixedToBase (w,t,Core):
-#  StateOfBase=GetSolFromVect(Core,w,0,0)
-#  for (K,L) in Core['KLFixedToBase']:
-#    PutValToVect(Core,w,K,L,StateOfBase)
-#  return
-
-#def AccelModForFixedBlocks (w,t,Core):
-#  global Accel
-# 
-#  # Fixed
-#  for (K,L) in Core['KLFixed']:
-#    (U,DU,W,DW,R,DR) = GetSolFromVect(Core,w,K,L)
-#    Accel_Bl = [DU,0.,DW,0.,DR,0.]
-#    PutValToVect(Core,Accel,K,L,Accel_Bl)
-#    
-#  # FixedToBase
-#  for (K,L) in Core['KLFixedToBase']:
-#    Accel_Bl = [0.,0.,0.,0.,0.,0.]
-#    PutValToVect(Core,Accel,K,L,Accel_Bl)
-#    
-#  return  
   
   
 #=========================================================================
-# BLOCK FORCES
-#=========================================================================
+#{ BLOCK FORCES
 
 
 
@@ -518,12 +491,7 @@ def OLD_Force_Block (w,t,Core,K,L,Accel):
 
 #=========================================================================
 # END OF BLOCK FORCES
-#=========================================================================
-
-
-
-
-
+#}=========================================================================
 
 
 
@@ -534,7 +502,7 @@ def OLD_Force_Block (w,t,Core,K,L,Accel):
 # Extract Acceleration from State Vector
 #=========================================================================
 
-def OLD_ExtractAccelFromXV (Solution,t,Core,VERBOSE=''):
+def OLD_ExtractAccelFromXV (Solution,t,Core,VERBOSE=''): #{
   Accel = []
 #  for sol,t_i in Solution,t:
   for i in range(len(t)):
@@ -554,9 +522,9 @@ def OLD_ExtractAccelFromXV (Solution,t,Core,VERBOSE=''):
     Accel.append(f[1::2])
 #    Accel=numpy.array(Accel)
   return Accel
+#}
 
-
-def ExtractAccelFromXV (Solution,t,Core,VERBOSE=''):
+def ExtractAccelFromXV (Solution,t,Core,VERBOSE=''): #{
 
   start = time.time()
   
@@ -592,4 +560,6 @@ def ExtractAccelFromXV (Solution,t,Core,VERBOSE=''):
   start = end
 
   return Accel
+#}
 
+#=========================================================================

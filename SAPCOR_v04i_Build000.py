@@ -4,11 +4,15 @@
 """Seismic Analysis for a Prismatic CORe of a HTGR
 """
 
-VERSION_NAME = 'SAPCOR_v04f'
+VERSION_NAME = 'SAPCOR_v04i'
 
+###############################################################################
+#{    SYSTEM INITIALIZATION
+
+#{ IMPORT =====================================================================
 from scipy.integrate import odeint
 
-from numpy import loadtxt
+from numpy import loadtxt,savetxt
 from numpy import array,zeros
 from pylab import figure, plot, xlabel, grid, hold, legend, title, savefig,ion,ioff,draw
 import sys,numpy,time,shutil,glob,os
@@ -36,8 +40,9 @@ for Module_Name in MODULE_NAMES:
   exec('from '+FileName+' import *')
 # -------------------------------------------------------------------
 
-#----------------------------------------------------------------------------
-# Make Output Folder
+#} IMPORT =====================================================================
+
+#{ Make Output Folder =========================================================
 start_time = time.time()
 temp = time.localtime(start_time)
 year = temp.tm_year
@@ -49,24 +54,16 @@ second = temp.tm_sec
 FO_DIR = 'Output_%4d-%02d-%02d_%02dh%02dm%02ds'%(year,month,day,hour,minute,second)
 os.mkdir(FO_DIR)
 VerboseInit(FO_DIR)
-# end of Make Output Folder
-#----------------------------------------------------------------------------
+#} Make Output Folder =========================================================
 
-# -------------------------------------------------------------------
 Verbose('//INIT//')
-# -------------------------------------------------------------------
+
+#}    SYSTEM INITIALIZATION
+###############################################################################
 
 
-
-
-
-
-
-
-
-#-------------------------------------------------------------------------
-
-
+###############################################################################
+#{                               LOCAL FUNCTIONS                              #
 def CheckIndex (Core):
   Verbose(' Index Check')
   Verbose('-------------')
@@ -89,26 +86,17 @@ def CheckIndex (Core):
   if NError>0:
     ERROR('ERROR: Index Mismatch')
   return
-  
-    
+#}                               LOCAL FUNCTIONS                              #
+###############################################################################
 
 
-
-
-
-
-# ============================================================================
-#    INITIALIZATION
-# ============================================================================
-
-
+###############################################################################
+#{                               INITIALIZATION                               #
+#                                                                             #
 Verbose('Started at '+time.ctime(start_time))
 Verbose('='*40)
 
-
-
-# -------------------------------------------------------------------
-# Import Modules - LOG
+#{ Import Modules - LOG ---------------------------------------------
 Verbose(' Imported Modules')
 Verbose('------------------')
 for Module_Name in MODULE_NAMES:
@@ -118,26 +106,23 @@ for Module_Name in MODULE_NAMES:
   FileName = FList[-1][0:-3]
   Verbose('  '+FileName)
 Verbose()
-# -------------------------------------------------------------------
+#} Import Modules - LOG ----------------------------------------------
 
 
 #----------------------------------------------------------------------------
-# MAKE BACKUP OF INPUT FILE
+#{ MAKE BACKUP OF INPUT FILE
 FList = glob.glob(VERSION_NAME+'_Input_Build*.py')
 FList.sort()
 FileName = FList[-1]
 shutil.copyfile(FileName,FO_DIR+'/'+FN_OUT+'.in')
-#----------------------------------------------------------------------------
-
+#}----------------------------------------------------------------------------
 
 
 Core={}
 
 
-
-
 #-------------------------------------------------------------------------
-# Index ('ReverseIndex')
+#{ Index ('ReverseIndex')
 CoreArray2={}
 i_Index=1
 Index2={}
@@ -147,15 +132,17 @@ K=0
 Core['Flag_CSB']=False
 Core['N']=[]
 
-for Column in CoreArray: # Read a column (could be 'CSB')
 
-  # If it is CSB
+for Column in CoreArray: # Read a column (could be 'CSB')
+#{
+  #{ If it is CSB
   if Column=='CSB':
     i_Index+=1 # If CSB exists, reserve Index[1][0]
     Index.append([1,0]) # CSB
     Core['Flag_CSB']=True
+  #}
 
-  # If it is Reflectors or Blocks
+  #{ If it is Reflectors or Blocks
   else:
     CoreArray2[K]={}
     Index2[K]=[-1]
@@ -167,6 +154,8 @@ for Column in CoreArray: # Read a column (could be 'CSB')
       Index.append([K,L])
       CoreArray2[K][L]=Column[i]
     K+=1
+  #}
+#}
 
 # K : 0, 1, 2, ..., M, M+1, M+2
 Core['M']=K-2 # It is not K-1 beacause last K+=1 in above loop
@@ -174,19 +163,17 @@ Core['M']=K-2 # It is not K-1 beacause last K+=1 in above loop
 Index2[0][0]=0 # (0,0) ; Base ; Index=0
 
 if Core['Flag_CSB']==True:
+#{
   Index2[1][0]=1 # (1,0) ; CSB ; Index=1 if exists
+#}
 
 #CoreArray=CoreArray2
 
-#-------------------------------------------------------------------------
-
-
-
-
+#} -------------------------------------------------------------------------
 
 
 #-------------------------------------------------------------------------
-# BTNsKL
+#{ BTNsKL
 BTNsKL={}
 K=0
 
@@ -206,12 +193,12 @@ for Column in CoreArray: # Read a column (could be 'CSB')
 BTNsKL[0][0] = 'Base'
 
 if CoreArray[0]=='CSB': BTNsKL[1][0] = 'CSB'
-#-------------------------------------------------------------------------
+#} -------------------------------------------------------------------------
 
 
 
 #-------------------------------------------------------------------------
-# BTNs
+#{ BTNs
 BTNs=[]
 for index in Index:
   if index==[0,0]: # BTN='Base' which is not in CoreArray
@@ -221,11 +208,11 @@ for index in Index:
   else:
     BTN = CoreArray2[index[0]][index[1]]
   BTNs.append(BTN)
-#-------------------------------------------------------------------------
+#} -------------------------------------------------------------------------
 
 
 #-------------------------------------------------------------------------
-# Index for FixedToBase
+#{ Index for FixedToBase
 IndexFixedToBase=[]
 for i in xrange(len(Index)):
   if i==0: # Base
@@ -235,21 +222,21 @@ for i in xrange(len(Index)):
   if Fixed=='FixedToBase':
     IndexFixedToBase.append(i)
   
-#-------------------------------------------------------------------------
+#}-------------------------------------------------------------------------
 
 
 #-------------------------------------------------------------------------
-# (K,L) for FixedToBase
+#{ (K,L) for FixedToBase
 KLFixedToBase=[]
 for i in IndexFixedToBase:
   (K,L) = Index[i]
   KLFixedToBase.append([K,L])
   
-#-------------------------------------------------------------------------
+#}-------------------------------------------------------------------------
 
 
 #-------------------------------------------------------------------------
-# Index for Fixed
+#{ Index for Fixed
 IndexFixed=[]
 for i in xrange(len(Index)):
   if i==0: # Base
@@ -259,27 +246,21 @@ for i in xrange(len(Index)):
   if Fixed=='Fixed':
     IndexFixed.append(i)
   
-#-------------------------------------------------------------------------
+#}-------------------------------------------------------------------------
 
 
 #-------------------------------------------------------------------------
-# (K,L) for Fixed
+#{ (K,L) for Fixed
 KLFixed=[]
 for i in IndexFixed:
   (K,L) = Index[i]
   KLFixed.append([K,L])
   
-#-------------------------------------------------------------------------
-
-
-
-
-
-
+#}-------------------------------------------------------------------------
 
 
 #-------------------------------------------------------------------------
-# Core
+#{ Core
 Core['BlockTypes']=BlockTypes
 Core['MatProp']=MatProp
 Core['Array']=CoreArray2
@@ -303,12 +284,12 @@ GetInitBlockCenters(Core,VERBOSE=VERBOSE)
 MakeTxtCoreArray (Core) # Make text form of core array -> Core['TxtArray']
 
 CheckIndex(Core)
-#-------------------------------------------------------------------------
+#}-------------------------------------------------------------------------
 
 
 
 #-------------------------------------------------------------------------
-# LOG - INITIALIZATION
+#{ LOG - INITIALIZATION
 if '/Init/' in VERBOSE:
   Verbose('='*80)
   Verbose('<Initialization>')
@@ -366,31 +347,15 @@ if '/Init/' in VERBOSE:
   PrintIndex(Core)
 
   Verbose('='*80)
-#-------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#}-------------------------------------------------------------------------
 
 
 CurrentTime=0.
 
 
 
-
 #----------------------------------------------------
-# Initial Conditions
+#{ Initial Conditions
 # InitialConditions.append([K,L, U,DU, W,DW, R,DR])
 
 StartValues = [0. for i in xrange(6*len(Core['ReverseIndex']))]
@@ -414,12 +379,24 @@ if '/Init/' in VERBOSE:
   for i in xrange(len(StartValues)):
     if StartValues[i]!=0.:
       Verbose('StartValues[%d]=%f'%(i,StartValues[i]))
-#----------------------------------------------------
+#}----------------------------------------------------
+      
+#{ SAVE INITIAL T,STATEVECTOR      
+fo = open(FO_DIR+'/Time.csv','w')
+savetxt(fo,[0.])
+fo.close()
+
+fo = open(FO_DIR+'/StateVector.csv','w')
+savetxt(fo,[StartValues],delimiter=',')
+fo.close()
+#}
+
+
 
 
 
 #-------------------------------------------------------------------------
-# INITIALIZATION FOR PLOTTING
+#{ INITIALIZATION FOR PLOTTING
 # Plotting Setting
 FlagColorToggle=True
 FlagColorToggleVal=0
@@ -436,23 +413,22 @@ Post_CoreShapeInit (Core)
 #Accel = ExtractAccelFromXV([StartValues],[0],Core)
 #Post_Solution([0],[StartValues],Accel,Core,FO_DIR)
 
-#-------------------------------------------------------------------------
+#}-------------------------------------------------------------------------
 
 
 
 Verbose('\n\n=== INITIALIZATION ENDED ===\n\n')
 raw_input('PRESS ENTER TO CONTINUE!')
 
+#                                                                             #
+#}                               INITIALIZATION                               #
+###############################################################################
+
+
+
 
 # ============================================================================
-#    END OF INITIALIZATION
-# ============================================================================
-
-
-
-
-# ============================================================================
-#    TEST FORCES ONLY
+#{    TEST FORCES ONLY
 #
 # Objective: For module verification, calculate initial acceleration only.
 #
@@ -463,7 +439,7 @@ raw_input('PRESS ENTER TO CONTINUE!')
 # ============================================================================
 
 if( FLAG_TestForce==True ):
-  
+#{  
   Accel = VectorField (StartValues,0,Core)
   print '='*80
   for IndexBlock in range(len(Core['ReverseIndex'])):
@@ -508,38 +484,35 @@ if( FLAG_TestForce==True ):
 
   raw_input('\n\nTEST FORCES ENDED. PRESS ENTER TO QUIT!')
   sys.exit(-1)
+#}
 
 # ============================================================================
-#    END OF TEST FORCES ONLY
+#}    END OF TEST FORCES ONLY
 # ============================================================================
 
 
 
 
+###############################################################################
+#{                              M A I N   L O O P                              #
 
-
-
-
-##########################################################################
-#                                                                        #
-#                         M A I N   L O O P                              #
-#                                                                        #
-##########################################################################
-
-
-
-# ------------------------------------------------------
-# START OF MAIN LOOP
+#==============================================================================
+#{ WHILE CURRENTTIME<TOTALTIME
 
 while CurrentTime<TotalTime:
-  print 'Current Time=',CurrentTime
+
+  Msg  = 'Current Time = %f'%CurrentTime
+  Verbose(Msg)
   
-  # Prepare Integration
+  # Prepare Integration #{
   # Reset SectionTime
   SectionTime=SectionTime0
   Tol=Tol0
-  dt=OP_Block_TimeFreq
+  dt=TimeIncr # from INPUT
+  #}
 
+  #-----------------------------------------------------------------------------
+  #  CONVERGE CONTROL LOOP #{
   while True:
 
 #    print '  SectionTime=%f'%SectionTime
@@ -548,22 +521,26 @@ while CurrentTime<TotalTime:
 #    t=[SectionTime*float(i)/(NPoints-1)+CurrentTime for i in range(NPoints)]
 #    print '  t[0]=%f, t[-1]=%f, len(t)=%d'%(t[0],t[-1],len(t))
 
+    # PREPARE T,SOLUTION #{
     temp=SectionTime/dt
     NPoints=int(temp)
     if NPoints<temp: NPoints+=1
     t=[dt*i+CurrentTime for i in range(NPoints+1)]
+    #}
 
+    # SOLVE #{
     Solution,Status = odeint(VectorField, StartValues, t, args=(Core,VERBOSE), atol=Tol, rtol=Tol, full_output=True)
+    #}
 
-
-
-    
-    # If odeint succeeded, break and go to next CurrentTime
+    # If odeint succeeded, break and go to next CurrentTime #{
     if 'successful' in Status['message']: break
+    #}
 
+    #---------------------------------------------------------------------------
+    # If odeint failed, #{
+    
     Verbose('CONVERGENCE FAILED')      
     
-    # If odeint failed, 
     if SectionTime/2. >= SectionTimeMin:
       
     # SectionTime Control (Halfing)
@@ -598,50 +575,64 @@ while CurrentTime<TotalTime:
           if 'successful' in Status2['message']:
             Solution = Solution2
           break
-      
-      
+    # END OF If odeint failed
+    #}--------------------------------------------------------------------------
+
+    
+  #  END OF INIFINITE LOOP  
+  #}----------------------------------------------------------------------------
 
 
 
-#-----------------------------------------------------------------------------
-# PERFORMANCE MEASUREMENT
+  #-----------------------------------------------------------------------------
+  #  PERFORMANCE MEASUREMENT #{
   a,b,c,d,e,f = PerfResult_VectorField()
-  Msg  = '=== Performance Measurement ===\n'
-  Msg += 'VectorField() of this section: NRun=%d, RunTime=%.1f, Avg=%.1fms\n'%(a,b,c*1000)
-  Msg += 'VectorField() of total run   : NRun=%d, RunTime=%.1f, Avg=%.1fms'%(d,e,f*1000)
+  Msg  = '  === Performance Measurement ===\n'
+  Msg += '  VectorField() of this section: NRun=%d, RunTime=%.1f, Avg=%.1fms\n'%(a,b,c*1000)
+  Msg += '  VectorField() of total run   : NRun=%d, RunTime=%.1f, Avg=%.1fms'%(d,e,f*1000)
   Verbose(Msg)
-# END OF PERFORMANCE MEASUREMENT
-#-----------------------------------------------------------------------------
+  #}----------------------------------------------------------------------------
 
 
 
-#-----------------------------------------------------------------------------
-# Save Results
+  #-----------------------------------------------------------------------------
+  #   Save Results #{
 
-  print 'Post_CoreShape',
-  Post_CoreShape(t,Solution,Core,FO_DIR)
-  print 'Finished'
+  if OP_CoreShape_TimeFreq != 0:
+    print '  Post_CoreShape',
+    Post_CoreShape(t,Solution,Core,FO_DIR)
+    print 'Finished'
 
 #  Accel = ExtractAccelFromXV(Solution,t,Core)
 #  print '3'
 
-  print 'Post_Solution',
-#  Post_Solution(t,Solution,Accel,Core,FO_DIR)
-  Post_Solution(t,Solution,None,Core,FO_DIR)
-  print 'Finished'
+  if OP_Solution_TimeFreq != 0:
+    print '  Post_Solution',
+#    Post_Solution(t,Solution,Accel,Core,FO_DIR)
+    Post_Solution(t,Solution,None,Core,FO_DIR)
+    print 'Finished'
 
-  print 'Post_Block',
-#  Post_Block(t,Solution,Accel,Core,FO_DIR)
-  Post_Block(t,Solution,None,Core,FO_DIR)
-  print 'Finished'
-
+  if OP_Block_TimeFreq != 0:
+    print '  Post_Block',
+#    Post_Block(t,Solution,Accel,Core,FO_DIR)
+    Post_Block(t,Solution,None,Core,FO_DIR)
+    print 'Finished'
   
-# End of Save Results
-#-----------------------------------------------------------------------------
+  #{ SAVE STATEVECTOR (DEFAULT)
+  fo = open(FO_DIR+'/Time.csv','a')
+  savetxt(fo,t[1:])
+  fo.close()
+
+  fo = open(FO_DIR+'/StateVector.csv','a')
+  savetxt(fo,Solution[1:],delimiter=',')
+  fo.close()
+  #}
+  
+  #}----------------------------------------------------------------------------
 
 
 
-  # PLOT CURRENT INTEGRATION RESULT  
+  # DELETED #{
   # PLOT CURRENT INTEGRATION RESULT  
   # PLOT CURRENT INTEGRATION RESULT  
  
@@ -747,21 +738,25 @@ while CurrentTime<TotalTime:
 #    text+='\n'
 #    fo.write(text)
 
+  #}
 
-  # Next Step
+  # Next Step #{
   CurrentTime=t[-1]
   StartValues=Solution[-1]
+  #}
+  
+#} END OF WHILE CURRENTTIME<TOTALTIME
+#==============================================================================
+
+#}                              M A I N   L O O P                              #
+###############################################################################
 
 
 
 
 
-
-# END OF MAIN LOOP
-# ------------------------------------------------------
-
-
-
+# =============================================================================
+#{    TIME MEASUREMENT
 
 end_time = time.time()
 run_time_min = (end_time-start_time) / 60
@@ -769,3 +764,6 @@ run_time_sec = int((end_time-start_time) % 60)
 Verbose('='*40)
 Verbose('Finished at '+time.ctime(end_time))
 Verbose('Run Time : %d min %d sec'%(run_time_min,run_time_sec))
+
+#}    TIME MEASUREMENT
+# =============================================================================

@@ -1,10 +1,10 @@
 #
-# SAPCOR odeint Version.py
+# SAPCOR-POST.py
 #
-"""Seismic Analysis for a Prismatic CORe of a HTGR
+"""Seismic Analysis POST for a Prismatic CORe of a HTGR
 """
 
-VERSION_NAME = 'SAPCOR_v04f'
+VERSION_NAME = 'SAPCOR_v04i'
 
 ###############################################################################
 #{    SYSTEM INITIALIZATION
@@ -12,7 +12,7 @@ VERSION_NAME = 'SAPCOR_v04f'
 #{ IMPORT =====================================================================
 from scipy.integrate import odeint
 
-from numpy import loadtxt
+from numpy import loadtxt,savetxt
 from numpy import array,zeros
 from pylab import figure, plot, xlabel, grid, hold, legend, title, savefig,ion,ioff,draw
 import sys,numpy,time,shutil,glob,os
@@ -51,7 +51,7 @@ day = temp.tm_mday
 hour = temp.tm_hour
 minute = temp.tm_min
 second = temp.tm_sec
-FO_DIR = 'Output_%4d-%02d-%02d_%02dh%02dm%02ds'%(year,month,day,hour,minute,second)
+FO_DIR = 'POST_%4d-%02d-%02d_%02dh%02dm%02ds'%(year,month,day,hour,minute,second)
 os.mkdir(FO_DIR)
 VerboseInit(FO_DIR)
 #} Make Output Folder =========================================================
@@ -86,6 +86,36 @@ def CheckIndex (Core):
   if NError>0:
     ERROR('ERROR: Index Mismatch')
   return
+
+def ERROR (ERR_MSG_LIST,Align='Left'):
+#{
+  Msg  = '\n'*3+'='*79+'\n'
+  Msg += '='+' '*34+'E R R O R'+' '*34+'=\n'
+  Msg += '='*79+'\n'
+  Msg += '='+' '*77+'=\n'
+
+  if Align == 'Left':
+    # LEFT-ALIGNED FORMAT
+    for ERR_MSG in ERR_MSG_LIST:
+      Length = len(ERR_MSG)
+      NBlankR = 75 - Length
+      Msg += '='+'  '+ERR_MSG+' '*NBlankR+'=\n'
+  else:
+    # CENTERED FORMAT
+    for ERR_MSG in ERR_MSG_LIST:
+      Length = len(ERR_MSG)
+      NBlankL = NBlankR = 38 - Length/2
+      if Length%2 == 0: NBlankR += 1
+      Msg += '='+' '*NBlankL+ERR_MSG+' '*NBlankR+'=\n'
+
+  Msg += '='+' '*77+'=\n'
+  Msg += '='*79+'\n'
+  Msg += '\n'*3
+  Verbose(Msg)  
+  raise
+  return
+#}
+
 #}                               LOCAL FUNCTIONS                              #
 ###############################################################################
 
@@ -414,311 +444,51 @@ raw_input('PRESS ENTER TO CONTINUE!')
 
 
 
-
-# ============================================================================
-#{    TEST FORCES ONLY
-#
-# Objective: For module verification, calculate initial acceleration only.
-#
-# Usage:
-#   Set FLAG_TestForce=True in Input file to invoke this test.
-#   Set FLAG_TestForce=False to skip this test.
-#   
-# ============================================================================
-
-if( FLAG_TestForce==True ):
-#{  
-  Accel = VectorField (StartValues,0,Core)
-  print '='*80
-  for IndexBlock in range(len(Core['ReverseIndex'])):
-    K,L=Core['ReverseIndex'][IndexBlock]
-    IndexW = IndexBlock*6
-    AccelBl = Accel[IndexW:IndexW+6]
-    Verbose('(K,L)=(%d,%d) : Accel=%s'%(K,L,AccelBl))
-  #print 'in main : Accel=',Accel
-
-  print '='*80
-  
-  print '( K- L), U       , DU      , DDU     , W       , DW      , DDW     , R        , DR      , DDR'
-  for i in xrange(len(Core['ReverseIndex'])):
-    (K,L)=Core['ReverseIndex'][i]
-    BlockState=GetSolFromVect (Core,StartValues,K,L)
-    BlockAccel=GetSolFromVect (Core,Accel,K,L)
-    Msg  = '(%2d-%2d),'%(K,L)
-    Msg += '%9.2e,%9.2e,          %9.2e,%9.2e,           %9.2e,%9.2e\n'%(BlockState)
-    Msg += '       ,'
-    Msg += '          %9.2e,%9.2e,          %9.2e,%9.2e,           %9.2e,%9.2e'%BlockAccel
-    print Msg
-  
-  Verbose('='*80)
-  
-  Verbose('( K- L), DU        , DDU       , DW        , DDW       , DR        , DDR')
-  for i in xrange(len(Core['ReverseIndex'])):
-    (K,L)=Core['ReverseIndex'][i]
-    BlockAccel=GetSolFromVect (Core,Accel,K,L)
-    Msg  = '(%2d-%2d),'%(K,L)
-    for j in range(6):
-      if BlockAccel[j]==0.0:
-        Msg += ' '*10+'0,'
-      else:
-        Msg += '%11.4e,'%BlockAccel[j]
-#    Msg += '%11.4e,%11.4e,%11.4e,%11.4e,%11.4e,%11.4e'%BlockAccel
-    Verbose(Msg)
-  
-  Msg  = '=== Performance Measurement ===\n'
-  Msg += 'VectorField() : NRun=%d, RunTime=%f, AvgTime=%f'%PerfResult_VectorField()
-  print Msg
-
-
-  raw_input('\n\nTEST FORCES ENDED. PRESS ENTER TO QUIT!')
-  sys.exit(-1)
-#}
-
-# ============================================================================
-#}    END OF TEST FORCES ONLY
-# ============================================================================
-
-
-
-
 ###############################################################################
-#{                             M A I N   L O O P                              #
+#{                              M A I N   L O O P                             #
+#                                                                             #
 #                                                                             #
 
-
-
-
-# ------------------------------------------------------
-# START OF MAIN LOOP
-
-while CurrentTime<TotalTime:
-#{
-  print 'Current Time=',CurrentTime
-  
-  # Prepare Integration
-  # Reset SectionTime
-  SectionTime=SectionTime0
-  Tol=Tol0
-  dt=OP_Block_TimeFreq
-
-  while True:
-
-#    print '  SectionTime=%f'%SectionTime
-
-    # Integration
-#    t=[SectionTime*float(i)/(NPoints-1)+CurrentTime for i in range(NPoints)]
-#    print '  t[0]=%f, t[-1]=%f, len(t)=%d'%(t[0],t[-1],len(t))
-
-    temp=SectionTime/dt
-    NPoints=int(temp)
-    if NPoints<temp: NPoints+=1
-    t=[dt*i+CurrentTime for i in range(NPoints+1)]
-
-    Solution,Status = odeint(VectorField, StartValues, t, args=(Core,VERBOSE), atol=Tol, rtol=Tol, full_output=True)
-
-
-
-    
-    # If odeint succeeded, break and go to next CurrentTime
-    if 'successful' in Status['message']: break
-
-    Verbose('CONVERGENCE FAILED')      
-    
-    # If odeint failed, 
-    if SectionTime/2. >= SectionTimeMin:
-      
-    # SectionTime Control (Halfing)
-      SectionTime/=2.
-      Verbose('Half the SectionTime = %f'%SectionTime)
-    else:
-      
-    # Tolerance Control (Doubling)
-      while True:
-#        Tol*=2.
-#        Verbose('Double the Tol = %e'%Tol)
-        Tol*=10.
-        Verbose('10 times the Tol = %e'%Tol)
-
-        # Bound Check
-        if Tol>TolMax: # Error
-          print '='*70
-          print 'ERR: Tol(%e) > TolMax(%e)'%(Tol,TolMax)
-          print 'STOP'
-          print '='*70
-          sys.exit(-1)
-        
-        Solution,Status = odeint(VectorField, StartValues, t, args=(Core,VERBOSE),
-            atol=Tol, rtol=Tol, full_output=True)
-      
-        if 'successful' in Status['message']:
-        
-          # Try average of previous Tol and current Tol
-          Tol*=0.75
-          Solution2,Status2 = odeint(VectorField, StartValues, t, args=(Core,VERBOSE),
-              atol=Tol, rtol=Tol, full_output=True)
-          if 'successful' in Status2['message']:
-            Solution = Solution2
-          break
-#}      
-      
-
-
-
 #-----------------------------------------------------------------------------
-#{ PERFORMANCE MEASUREMENT
-  a,b,c,d,e,f = PerfResult_VectorField()
-  Msg  = '=== Performance Measurement ===\n'
-  Msg += 'VectorField() of this section: NRun=%d, RunTime=%.1f, Avg=%.1fms\n'%(a,b,c*1000)
-  Msg += 'VectorField() of total run   : NRun=%d, RunTime=%.1f, Avg=%.1fms'%(d,e,f*1000)
-  Verbose(Msg)
-#} END OF PERFORMANCE MEASUREMENT
-#-----------------------------------------------------------------------------
-
-
-
-#-----------------------------------------------------------------------------
-#{ Save Results
-
-  print 'Post_CoreShape',
-  Post_CoreShape(t,Solution,Core,FO_DIR)
-  print 'Finished'
-
-#  Accel = ExtractAccelFromXV(Solution,t,Core)
-#  print '3'
-
-  print 'Post_Solution',
-#  Post_Solution(t,Solution,Accel,Core,FO_DIR)
-  Post_Solution(t,Solution,None,Core,FO_DIR)
-  print 'Finished'
-
-  print 'Post_Block',
-#  Post_Block(t,Solution,Accel,Core,FO_DIR)
-  Post_Block(t,Solution,None,Core,FO_DIR)
-  print 'Finished'
-
-  
-#} End of Save Results
-#-----------------------------------------------------------------------------
-
-
-
-  #{ PLOT CURRENT INTEGRATION RESULT  
-  # PLOT CURRENT INTEGRATION RESULT  
-  # PLOT CURRENT INTEGRATION RESULT  
- 
-  # Toggle color for each section
-#  if FlagColorToggle==True:
-#    if FlagColorToggleVal==0:
-#      c1='b-'
-#      c2='g-'
-#      FlagColorToggleVal=1
-#    else:
-#      c1='r-'
-#      c2='c-'
-#      FlagColorToggleVal=0
-
-  # Plot
-#  x1=Solution[:,18] # 1st block: X(18),DX(19),W(20),DW(21),R(22),DR(23)
-#  x2=Solution[:,24] # 2nd block: X(24),DX(25),W(26),DW(27),R(28),DR(29)
-#  x3=Solution[:,32] # 3rd block: X(30),DX(31),W(32),DW(33),R(34),DR(35)
-#  w1=Solution[:,20] # 1st block: X(18),DX(19),W(20),DW(21),R(22),DR(23)
-#  w2=Solution[:,26] # 2nd block: X(24),DX(25),W(26),DW(27),R(28),DR(29)
-#  w3=Solution[:,32] # 3rd block: X(30),DX(31),W(32),DW(33),R(34),DR(35)
-#  r1=Solution[:,22] # 1st block: X(18),DX(19),W(20),DW(21),R(22),DR(23)
-#  r2=Solution[:,28] # 2nd block: X(24),DX(25),W(26),DW(27),R(28),DR(29)
-#  r3=Solution[:,34] # 3rd block: X(30),DX(31),W(32),DW(33),R(34),DR(35)
-#  v1=Solution[:,19] # 1st block: X(18),DX(19),W(20),DW(21),R(22),DR(23)
-#  v2=Solution[:,25] # 2nd block: X(24),DX(25),W(26),DW(27),R(28),DR(29)
-#  v3=Solution[:,33] # 3rd block: X(30),DX(31),W(32),DW(33),R(34),DR(35)
-#  a1=Accel[:,9] # 1st block: DDX(9),DDW(10),DDR(11)
-#  a2=Accel[:,12] # 2nd block: DDX(12),DDW(13),DDR(14)
-#  a3=Accel[:,15] # 3rd block: DDX(15),DDW(16),DDR(17)
-
-
-
-  
-  # Block 1 Shape
-#  if FlagHeader_Shape==True:
-#    text = 't, LD x, RD x, RU x, LU x, LD x, LD z, RD z, RU z, LU z, LD z\n'
-#    fo_shape.write(text)
-#    FlagHeader_Shape=False
-#  NDiv = len(x1)/10
-#  NDiv = len(x1)
-#  for i in range(0,len(x1),NDiv):
-#    T = t[i]
-#    U,W,R=x1[i],w1[i],r1[i]
-#    Cent,LU,LD,RU,RD = GetBlockCoords(Core,1,1,U,W,R,OP_CoreShape_Scale)
-#    text = '%e,'%T
-#    text += '%e,%e,%e,%e,%e,'%(LD[0],RD[0],RU[0],LU[0],LD[0])
-#    text += '%e,%e,%e,%e,%e\n'%(LD[1],RD[1],RU[1],LU[1],LD[1])
-#    fo_shape.write(text)
-   
-    
-    
-  
-  
-#  ion()
-#  figure(1, figsize=(20, 3))
-#  plot(t, x1, c1, linewidth=1)
-#  savefig(FN_FIG+'1_%e.png'%t[-1])
-#  figure(2, figsize=(20, 3))
-#  plot(t, r1, c2, linewidth=1)
-#  savefig(FN_FIG+'2_%e.png'%t[-1])
-#  figure(3, figsize=(20, 3))
-#  plot(t, a1, c1, linewidth=1)
-#  savefig(FN_FIG+'3_%e.png'%t[-1])
-#  figure(4, figsize=(20, 3))
-#  plot(t, a2, c1, linewidth=1)
-#  savefig(FN_FIG+'4_%e.png'%t[-1])
-
-
-
-
-
-
-  # WRITE OUTPUT  
-  # WRITE OUTPUT  
-  # WRITE OUTPUT  
-  
-#  if FlagHeader==True:
-##    text = 't, x1, w1, r1, x2, w2, r2, v1, v2, v3, a1, a2, a3\n'
-#    text='t,'
-#    for (K,L) in Core['ReverseIndex']:
-#      text+='(%d-%d) U,'%(K,L)
-#      text+='(%d-%d) DU,'%(K,L)
-#      text+='(%d-%d) W,'%(K,L)
-#      text+='(%d-%d) DW,'%(K,L)
-#      text+='(%d-%d) R,'%(K,L)
-#      text+='(%d-%d) DR,'%(K,L)
-#    text+='\n'
-#    fo.write(text)
-#    FlagHeader=False
-
-  
-#  for i in xrange(len(x1)):
-#    text  = '%e,%e,%e,%e,' %(t[i],x1[i],w1[i],r1[i])
-#    text +=   '%e,%e,%e,' %(     x2[i],w2[i],r2[i])
-#    text +=   '%e,%e,%e,' %(     v1[i],v2[i],v3[i])
-#    text +=   '%e,%e,%e\n'%(     a1[i],a2[i],a3[i])
-
-#  for i in xrange(len(t)):
-#    text='%e,'%t[i]
-#    for Sol in Solution[i]:
-#      text+='%e,'%Sol
-#    text+='\n'
-#    fo.write(text)
+#{ READ STATE VECTOR
+try:
+  Ts=loadtxt('Time.csv')
+  StateVectors=loadtxt('StateVector.csv',delimiter=',')
+except:
+  ERROR(["Cannot find 'Time.csv' and 'StateVector.csv'.",
+         "Please copy both files to this directory."])
+temp = zip(Ts,StateVectors)
 #}
+#-----------------------------------------------------------------------------
 
-  # Next Step
-  CurrentTime=t[-1]
-  StartValues=Solution[-1]
+#-----------------------------------------------------------------------------
+#{ LOOP
+for t,StateVector in temp:
+
+  Msg = 'Time = %g'%t
+  Verbose(Msg)  
+  Accel = VectorField(StateVector, t, Core, VERBOSE='', POST=True, FO_DIR=FO_DIR)
+  
+
+#} END OF LOOP
+#-----------------------------------------------------------------------------
+ 
 
 
 
+#-----------------------------------------------------------------------------
+#  PERFORMANCE MEASUREMENT #{
+a,b,c,d,e,f = PerfResult_VectorField()
+Msg  = '=== Performance Measurement ===\n'
+Msg += 'VectorField() of this section: NRun=%d, RunTime=%.1f, Avg=%.1fms\n'%(a,b,c*1000)
+Msg += 'VectorField() of total run   : NRun=%d, RunTime=%.1f, Avg=%.1fms'%(d,e,f*1000)
+Verbose(Msg)
+#}----------------------------------------------------------------------------
 
 
 #                                                                             #
-#}                             M A I N   L O O P                              #
+#                                                                             #
+#}                              M A I N   L O O P                             #
 ###############################################################################
 
 
